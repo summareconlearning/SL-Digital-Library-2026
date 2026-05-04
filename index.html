@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Summarecon Learning Library - Final</title>
     <!-- Premium Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,22 +30,22 @@
         .pixel-cloud { position: absolute; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.6); box-shadow: 20px 0 rgba(255,255,255,0.6), 40px 0 rgba(255,255,255,0.6), 60px 0 rgba(255,255,255,0.6), 80px 0 rgba(255,255,255,0.6), 100px 0 rgba(255,255,255,0.6), 120px 0 rgba(255,255,255,0.6), 140px 0 rgba(255,255,255,0.6), 20px -20px rgba(255,255,255,0.6), 40px -20px rgba(255,255,255,0.6), 60px -20px rgba(255,255,255,0.6), 80px -20px rgba(255,255,255,0.6), 100px -20px rgba(255,255,255,0.6), 120px -20px rgba(255,255,255,0.6), 40px -40px rgba(255,255,255,0.6), 60px -40px rgba(255,255,255,0.6), 80px -40px rgba(255,255,255,0.6), 100px -40px rgba(255,255,255,0.6), 60px -60px rgba(255,255,255,0.6), 80px -60px rgba(255,255,255,0.6); }
 
         /* --- HEADER & CONTROLS --- */
-        header { position: absolute; top: 40px; left: 50px; z-index: 100; pointer-events: none; }
+        header { position: fixed; top: 40px; left: 50px; z-index: 100; pointer-events: none; }
         header h1 { font-size: 26px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--text-white); line-height: 1.2; }
         
-        #back-btn { position: absolute; bottom: 40px; left: 50px; background: transparent; border: 2px solid var(--text-white); color: var(--text-white); padding: 12px 28px; font-size: 16px; font-weight: 700; cursor: pointer; border-radius: 30px; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+        #back-btn { position: fixed; bottom: 40px; left: 50px; background: transparent; border: 2px solid var(--text-white); color: var(--text-white); padding: 12px 28px; font-size: 16px; font-weight: 700; cursor: pointer; border-radius: 30px; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
         #back-btn:hover { background: var(--text-white); color: var(--bg-blue); transform: translateX(-5px); }
 
-        /* NEW BUTTON STYLES */
-        #main-back-btn { position: absolute; bottom: 40px; right: 50px; background: transparent; border: 2px solid var(--text-white); color: var(--text-white); padding: 12px 28px; font-size: 16px; font-weight: 700; cursor: pointer; border-radius: 30px; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+        #main-back-btn { position: fixed; bottom: 40px; right: 50px; background: transparent; border: 2px solid var(--text-white); color: var(--text-white); padding: 12px 28px; font-size: 16px; font-weight: 700; cursor: pointer; border-radius: 30px; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
         #main-back-btn:hover { background: var(--text-white); color: var(--bg-blue); transform: translateY(-5px); }
 
-        #info-btn { position: absolute; top: 30px; right: 40px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #f0f0f0, #d0d0d0); color: #333; font-family: "Georgia", serif; font-style: italic; font-size: 32px; font-weight: bold; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.2), inset 0 2px 5px rgba(255,255,255,0.8); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        #info-btn { position: fixed; top: 30px; right: 40px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #f0f0f0, #d0d0d0); color: #333; font-family: "Georgia", serif; font-style: italic; font-size: 32px; font-weight: bold; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.2), inset 0 2px 5px rgba(255,255,255,0.8); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
         #info-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
 
         /* --- STAGE 1: 3D BIG BOOKS --- */
         #stage-home { display: flex; justify-content: center; align-items: center; gap: clamp(40px, 8vw, 120px); height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; perspective: 2000px; }
-        .big-book-wrapper { width: clamp(200px, 20vw, 300px); height: clamp(300px, 30vw, 450px); cursor: pointer; position: relative; z-index: 10; }
+        .big-book-wrapper { width: clamp(200px, 20vw, 300px); height: clamp(300px, 30vw, 450px); cursor: pointer; position: relative; z-index: 10; outline: none; }
+        .big-book-wrapper:focus-visible .book-3d { transform: rotateX(0deg) rotateY(10deg) translateY(-20px); box-shadow: 0 0 0 4px #f3b255; border-radius: 8px;}
         .book-3d { width: 100%; height: 100%; position: absolute; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotateX(15deg) rotateY(35deg); }
         .book-3d::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); transform: translateZ(-30px) translateY(20px); filter: blur(25px); transition: transform 0.6s, opacity 0.6s; }
         .big-book-wrapper:hover .book-3d { transform: rotateX(0deg) rotateY(10deg) translateY(-20px); }
@@ -87,9 +87,10 @@
         .shelf-label-container::before, .shelf-label-container::after { content: ''; position: absolute; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; background: #4a3404; border-radius: 50%; box-shadow: inset 0 1px 1px rgba(255,255,255,0.4); }
         .shelf-label-container::before { left: 6px; } .shelf-label-container::after { right: 6px; }
         .shelf-label-inner { background: #fdfaf0; padding: 4px 20px; border-radius: 2px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.4); font-family: 'Anton', sans-serif; color: #222; font-size: 22px; letter-spacing: 2px; border: 1px solid #cbbd9a; min-width: 250px; min-height: 38px; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
-        /* Tier: full width container so both shelves are the same visual width */
-        .bookcase-tier { width: 100%; height: clamp(200px, 35vh, 350px); display: flex; align-items: flex-end; justify-content: flex-start; position: relative; padding: 0 10px; }
-        /* Wood plank only spans as far as the books — use an inner wrapper that shrinks to content */
+        
+        /* FIX: Ensure shelf doesn't smush items on short screens */
+        .bookcase-tier { width: 100%; min-height: 340px; height: auto; display: flex; align-items: flex-end; justify-content: flex-start; position: relative; padding: 0 10px; }
+        
         .tier-books-inner { display: flex; align-items: flex-end; justify-content: flex-start; flex-wrap: nowrap; height: 100%; position: relative; padding-bottom: 0; }
         .tier-books-inner::after { content: ''; position: absolute; bottom: -20px; left: -10px; right: -10px; height: 20px; background: linear-gradient(to bottom, #d6b083 0%, #a67c52 40%, #7d5a37 100%); box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.2); z-index: 0; border-radius: 4px; }
         .tier-wood { display: none; }
@@ -119,7 +120,19 @@
         #close-modal { position: absolute; top: 30px; right: 40px; background: none; border: none; font-size: 50px; color: #fff; cursor: pointer; z-index: 3000; transition: transform 0.2s; visibility: hidden; opacity: 0; pointer-events: auto !important; }
         #close-modal:hover { transform: scale(1.1) rotate(90deg); }
         
-        .book-modal-wrapper { width: clamp(700px, 85vw, 1100px); height: clamp(430px, 65vh, 680px); perspective: 2500px; transform-style: preserve-3d; position: relative; }
+        /* FIX: Aspect Ratio applied to avoid stretching on smaller/wider screens */
+        .book-modal-wrapper { 
+            width: 85vw; 
+            max-width: 1100px; 
+            height: auto; 
+            aspect-ratio: 1.6 / 1; 
+            max-height: 75vh; 
+            perspective: 2500px; 
+            transform-style: preserve-3d; 
+            position: relative; 
+            margin: 0 auto;
+        }
+
         .modal-page { position: absolute; width: 50%; height: 100%; right: 0; top: 0; transform-origin: left center; transform-style: preserve-3d; border-radius: 2px 8px 8px 2px; }
         
         .page-front { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 2px 8px 8px 2px; transform: translateZ(0.5px); }
@@ -193,6 +206,10 @@
         #close-chalkboard:hover { background: rgba(255,255,255,0.4); transform: rotate(90deg); }
         
         .chalkboard-container { width: 90vw; height: 85vh; max-width: 1600px; background: #2b5b3a; background-image: repeating-linear-gradient(to right, transparent, transparent 100px, rgba(255,255,255,0.01) 101px), radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%); border: 20px solid #ba8c53; border-bottom: 25px solid #a4763e; border-right: 25px solid #a4763e; border-top: 15px solid #d4a973; border-left: 15px solid #d4a973; border-radius: 8px; box-shadow: inset 0 0 40px rgba(0,0,0,0.8), 0 15px 40px rgba(0,0,0,0.6); padding: 30px 40px; position: relative; display: flex; flex-direction: column; overflow: hidden; }
+        
+        /* FIX: Chalkboard Header */
+        .chalkboard-main-title { font-family: 'Anton', sans-serif; font-size: 32px; color: #f3b255; text-align: center; letter-spacing: 3px; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); border-bottom: 3px dashed rgba(255,255,255,0.3); padding-bottom: 15px; flex-shrink: 0; }
+        
         .chalk-tray { position: absolute; bottom: -20px; left: -15px; right: -15px; height: 20px; background: #966f3e; border-radius: 0 0 8px 8px; box-shadow: 0 5px 10px rgba(0,0,0,0.3); z-index: 10; }
         .chalk-eraser { position: absolute; bottom: 8px; left: 80px; width: 100px; height: 25px; background: #e0d9cc; border-radius: 3px; box-shadow: 2px -2px 5px rgba(0,0,0,0.3); z-index: 11; }
         .chalk-stick { position: absolute; bottom: 8px; left: 200px; width: 40px; height: 8px; background: #fff; border-radius: 4px; box-shadow: 1px -1px 3px rgba(0,0,0,0.2); transform: rotate(-10deg); z-index: 11; }
@@ -244,23 +261,25 @@
             body { overflow: hidden; touch-action: manipulation; }
 
             /* --- HEADER --- */
-            header { top: 16px; left: 16px; }
+            /* FIX: Account for safe areas (notches) on mobile */
+            header { top: max(16px, env(safe-area-inset-top)); left: 16px; }
             header h1 { font-size: 14px; letter-spacing: 1px; }
 
             /* --- BUTTONS --- */
+            /* FIX: Back buttons use safe-area-inset to stay above the iPhone home bar */
             #back-btn {
-                bottom: 16px; left: 16px;
+                bottom: max(16px, env(safe-area-inset-bottom, 16px)); left: 16px;
                 padding: 10px 20px; font-size: 14px;
                 border-radius: 24px;
             }
             #main-back-btn {
-                bottom: 16px; right: 16px;
+                bottom: max(16px, env(safe-area-inset-bottom, 16px)); right: 16px;
                 padding: 10px 16px; font-size: 12px;
                 border-radius: 24px; max-width: 160px;
                 text-align: center; line-height: 1.3;
             }
             #info-btn {
-                top: 12px; right: 14px;
+                top: max(12px, env(safe-area-inset-top)); right: 14px;
                 width: 44px; height: 44px; font-size: 24px;
             }
 
@@ -289,7 +308,8 @@
             }
 
             .big-book-wrapper:hover .book-3d,
-            .big-book-wrapper:active .book-3d {
+            .big-book-wrapper:active .book-3d,
+            .big-book-wrapper:focus-visible .book-3d {
                 transform: rotateX(0deg) rotateY(10deg) translateY(-10px);
             }
 
@@ -804,6 +824,7 @@
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
             }
+            .chalkboard-main-title { font-size: 20px; margin-bottom: 15px; padding-bottom: 10px; }
             .chalk-role-title { font-size: 18px; }
             .chalk-subtitle { font-size: 13px; }
             .chalk-list li { font-size: 13px; }
@@ -850,7 +871,8 @@
 
     <div id="stage-home">
         <div id="cloud-container"></div>
-        <div class="big-book-wrapper" data-cat="non-teknis">
+        <!-- Accessibility fixes implemented -->
+        <div class="big-book-wrapper" data-cat="non-teknis" tabindex="0" role="button" aria-label="Buka Kategori Non-Teknis">
             <div class="book-3d">
                 <div class="face face-front" style="background-image: url('./asset/img/SMBOOK/covernontek.png');"></div><div class="face face-back" style="background-color: #d6983a;"></div>
                 <div class="face-spine-group" style="--spine-img: url('./asset/img/SMBOOK/spinenontek.png'); --spine-color: #c48b34;">
@@ -860,7 +882,7 @@
                 <div class="face face-top page-texture"></div><div class="face face-bottom page-texture"></div><div class="face face-right page-texture-h"></div><div class="face face-top-cap page-texture"></div><div class="face face-bottom-cap page-texture"></div>
             </div>
         </div>
-        <div class="big-book-wrapper" data-cat="teknis">
+        <div class="big-book-wrapper" data-cat="teknis" tabindex="0" role="button" aria-label="Buka Kategori Teknis">
             <div class="book-3d">
                 <div class="face face-front" style="background-image: url('./asset/img/SMBOOK/covertek.png');"></div><div class="face face-back" style="background-color: #247567;"></div>
                 <div class="face-spine-group" style="--spine-img: url('./asset/img/SMBOOK/spinetek.png'); --spine-color: #1e6356;">
@@ -916,6 +938,8 @@
     <div id="stage-chalkboard">
         <button id="close-chalkboard">×</button>
         <div class="chalkboard-container">
+            <!-- FIX: Added title inside chalkboard container -->
+            <h2 class="chalkboard-main-title">MATERI YANG WAJIB DISELESAIKAN</h2>
             <div class="chalk-grid" id="chalkboard-grid"></div>
             <div class="chalk-tray"></div><div class="chalk-eraser"></div><div class="chalk-stick"></div>
         </div>
@@ -1218,6 +1242,394 @@
                                                         "angle": 0,
                                                         "offsetX": -30,
                                                         "modules": [
+                                                                    {
+                                                                                "title": "Company Introduction",
+                                                                                "subtitle": "Mengenal Summarecon Lebih Dalam",
+                                                                                "description": "Kuasai tata kelola administrasi kepegawaian dan cara akses fasilitas internal secara efektif. Saatnya kenali lebih dekat budaya perusahaan agar aktivitas kerjamu makin lancar di sini!",
+                                                                                "spineImg": "./asset/img/SMBOOK/Onboarding/spine/Company Introduction/1.png",
+                                                                                "coverImg": "./asset/img/SMBOOK/Onboarding/cover/Company Introduction/1.png",
+                                                                                "width": 62,
+                                                                                "height": 320,
+                                                                                "angle": 2.7,
+                                                                                "btnText": "Lihat Materi",
+                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=658",
+                                                                                "pages": [
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/1.png",
+                                                                                                        "jam": "00:02:00",
+                                                                                                        "jamColor": "#ffeaa7",
+                                                                                                        "kode": "REC-05092401",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fcf3cf",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/2.png",
+                                                                                                        "jam": "00:07:00",
+                                                                                                        "jamColor": "#e17055",
+                                                                                                        "kode": "REC-06092401",
+                                                                                                        "kodeColor": "#e6ffe6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/3.png",
+                                                                                                        "jam": "00:21:00",
+                                                                                                        "jamColor": "#f7b2dd",
+                                                                                                        "kode": "REC-06092404",
+                                                                                                        "kodeColor": "#fcf3cf",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/4.png",
+                                                                                                        "jam": "00:06:00",
+                                                                                                        "jamColor": "#f5cba7",
+                                                                                                        "kode": "REC-06092405",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fffae6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/5.png",
+                                                                                                        "jam": "00:08:00",
+                                                                                                        "jamColor": "#abebc6",
+                                                                                                        "kode": "REC-06092406",
+                                                                                                        "kodeColor": "#ffffff",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/6.png",
+                                                                                                        "jam": "00:03:00",
+                                                                                                        "jamColor": "#ffeaa7",
+                                                                                                        "kode": "REC-06092407",
+                                                                                                        "kodeColor": "#ffffff",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/7.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#abebc6",
+                                                                                                        "kode": "REC-06092408",
+                                                                                                        "kodeColor": "#e6ffe6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/8.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#81ecec",
+                                                                                                        "kode": "REC-06092409",
+                                                                                                        "kodeColor": "#ffffff",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fcf3cf",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/9.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#a3c8ff",
+                                                                                                        "kode": "REC-06092410",
+                                                                                                        "kodeColor": "#e6ffe6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/10.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#e17055",
+                                                                                                        "kode": "REC-06092411",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/11.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#ff9191",
+                                                                                                        "kode": "REC-06092423",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/12.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#a3c8ff",
+                                                                                                        "kode": "REC-06092424",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/13.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#ffeaa7",
+                                                                                                        "kode": "REC-06092431",
+                                                                                                        "kodeColor": "#e6ffe6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fcf3cf",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/14.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#74b9ff",
+                                                                                                        "kode": "REC-06092432",
+                                                                                                        "kodeColor": "#e6ffe6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fffae6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/15.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#abebc6",
+                                                                                                        "kode": "REC-06092433",
+                                                                                                        "kodeColor": "#e6ffe6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fffae6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/16.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#74b9ff",
+                                                                                                        "kode": "REC-06092434",
+                                                                                                        "kodeColor": "#e6ffe6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/17.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#e17055",
+                                                                                                        "kode": "REC-06092435",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fffae6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/18.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#f7b2dd",
+                                                                                                        "kode": "REC-06092436",
+                                                                                                        "kodeColor": "#fcf3cf",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fcf3cf",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/19.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#f5cba7",
+                                                                                                        "kode": "REC-06092437",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/20.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#ff9191",
+                                                                                                        "kode": "REC-06092438",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/21.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#abebc6",
+                                                                                                        "kode": "REC-06092439",
+                                                                                                        "kodeColor": "#fcf3cf",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/22.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#a3c8ff",
+                                                                                                        "kode": "REC-06092440",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/23.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#d2b4de",
+                                                                                                        "kode": "REC-06092441",
+                                                                                                        "kodeColor": "#fcf3cf",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fcf3cf",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/24.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#74b9ff",
+                                                                                                        "kode": "REC-06092442",
+                                                                                                        "kodeColor": "#fcf3cf",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fffae6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/25.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#f5cba7",
+                                                                                                        "kode": "REC-06092443",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fffae6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/26.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#fdcb6e",
+                                                                                                        "kode": "REC-06092444",
+                                                                                                        "kodeColor": "#e6ffe6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fcf3cf",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/27.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#e17055",
+                                                                                                        "kode": "REC-06092445",
+                                                                                                        "kodeColor": "#fcf3cf",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/28.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#d2b4de",
+                                                                                                        "kode": "REC-06092446",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fcf3cf",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/29.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#a3c8ff",
+                                                                                                        "kode": "REC-06092447",
+                                                                                                        "kodeColor": "#ffffff",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/30.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#f7b2dd",
+                                                                                                        "kode": "REC-06092448",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fcf3cf",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/31.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#e17055",
+                                                                                                        "kode": "REC-06092449",
+                                                                                                        "kodeColor": "#ffffff",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#fcf3cf",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/32.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#ffeaa7",
+                                                                                                        "kode": "REC-06092450",
+                                                                                                        "kodeColor": "#fcf3cf",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/33.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#fdcb6e",
+                                                                                                        "kode": "REC-06092451",
+                                                                                                        "kodeColor": "#ffffff",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Onboarding/content/Company Introduction/34.png",
+                                                                                                        "jam": "00:01:00",
+                                                                                                        "jamColor": "#74b9ff",
+                                                                                                        "kode": "REC-06092452",
+                                                                                                        "kodeColor": "#e6ffe6",
+                                                                                                        "kategori": "Onboarding",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
+                                                                                            }
+                                                                                ]
+                                                                    },
                                                                     {
                                                                                 "title": "Orientasi Karyawan Baru",
                                                                                 "subtitle": "Fondasi Awal Perjalanan Kariermu",
@@ -2247,7 +2659,7 @@
                     }
         };
 
-                function populateChalkboard() {
+        function populateChalkboard() {
             const grid = document.getElementById('chalkboard-grid'); let html = "";
             chalkboardData.forEach(roleData => { let itemsHtml = roleData.courses.map((course, index) => `<li>${index + 1}. ${course}</li>`).join(""); html += `<div class="chalk-column"><div class="chalk-role-title">${roleData.role}</div><div class="chalk-subtitle">${roleData.subtitle}</div><ul class="chalk-list">${itemsHtml}</ul></div>`; });
             grid.innerHTML = html;
@@ -2260,7 +2672,33 @@
         closeChalkboardBtn.addEventListener('mouseenter', () => SoundEngine.play('hover'));
         closeChalkboardBtn.addEventListener('click', () => { SoundEngine.play('click'); gsap.to(stageChalkboard, { opacity: 0, duration: 0.3, onComplete: () => { gsap.set(stageChalkboard, { visibility: 'hidden' }); } }); gsap.to('.chalkboard-container', { scale: 0.8, y: 50, duration: 0.3, ease: "power2.in" }); });
 
-        document.querySelectorAll('.big-book-wrapper').forEach(book => { book.addEventListener('mouseenter', () => SoundEngine.play('hover')); book.addEventListener('click', () => { SoundEngine.play('click'); openLevel2(book.getAttribute('data-cat')); }); if(isMobile()) { book.addEventListener('touchend', (e) => { e.preventDefault(); SoundEngine.play('click'); openLevel2(book.getAttribute('data-cat')); }); } });
+        // Refactored Event Listeners for Big Books (Adding Keyboard Support)
+        const handleBookInteraction = (book) => {
+            SoundEngine.play('click'); 
+            openLevel2(book.getAttribute('data-cat'));
+        };
+
+        document.querySelectorAll('.big-book-wrapper').forEach(book => { 
+            book.addEventListener('mouseenter', () => SoundEngine.play('hover')); 
+            
+            // Mouse click
+            book.addEventListener('click', () => handleBookInteraction(book)); 
+            
+            // Keyboard interactions (Enter or Space key)
+            book.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); // Prevent page scroll on Space
+                    handleBookInteraction(book);
+                }
+            });
+
+            if(isMobile()) { 
+                book.addEventListener('touchend', (e) => { 
+                    e.preventDefault(); 
+                    handleBookInteraction(book);
+                }); 
+            } 
+        });
 
         let currentState = 'home'; let activeCategory = null; let activeSubcategory = null; let modalTimeline = null;
         const backBtn = document.getElementById('back-btn'); const container = document.getElementById('books-container'); const hugeTitle = document.getElementById('huge-title-text'); const layoutContainer = document.getElementById('shelf-layout-container');
