@@ -44,8 +44,8 @@
         #info-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
 
         /* --- STAGE 1: 3D BIG BOOKS --- */
-        #stage-home { display: flex; justify-content: center; align-items: center; gap: 120px; height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; perspective: 2000px; }
-        .big-book-wrapper { width: 300px; height: 450px; cursor: pointer; position: relative; z-index: 10; }
+        #stage-home { display: flex; justify-content: center; align-items: center; gap: clamp(40px, 8vw, 120px); height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; perspective: 2000px; }
+        .big-book-wrapper { width: clamp(200px, 20vw, 300px); height: clamp(300px, 30vw, 450px); cursor: pointer; position: relative; z-index: 10; }
         .book-3d { width: 100%; height: 100%; position: absolute; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotateX(15deg) rotateY(35deg); }
         .book-3d::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); transform: translateZ(-30px) translateY(20px); filter: blur(25px); transition: transform 0.6s, opacity 0.6s; }
         .big-book-wrapper:hover .book-3d { transform: rotateX(0deg) rotateY(10deg) translateY(-20px); }
@@ -74,21 +74,25 @@
 
         /* --- STAGE 2 & 3: SHELF VIEW --- */
         #stage-shelf { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; align-items: center; visibility: hidden; }
-        .shelf-master-container { width: 100vw; display: flex; align-items: flex-end; justify-content: flex-start; padding-left: 50px; position: relative; padding-bottom: 25px; margin-top: 100px; transition: padding 0.5s ease; }
+        .shelf-master-container { width: 100vw; display: flex; align-items: flex-end; justify-content: flex-start; padding-left: 50px; position: relative; padding-bottom: 25px; margin-top: clamp(40px, 8vh, 100px); transition: padding 0.5s ease; }
         .shelf-master-container.centered-layout { justify-content: center; padding-left: 0; margin-top: 50px; }
         .huge-title { font-family: 'Anton', sans-serif; font-size: 11vw; font-weight: normal; color: white; line-height: 0.8; letter-spacing: 2px; transform: scaleY(1.4); transform-origin: bottom left; margin-right: 80px; white-space: nowrap; transition: all 0.5s; }
         #books-container { position: relative; display: flex; z-index: 10; }
         .stack-layout { flex-direction: column-reverse; align-items: center; gap: 0px; margin-left: 20px; padding-bottom: 5px; }
         .shelf-floor { position: absolute; bottom: -15px; left: 0; width: 100vw; height: 15px; background: var(--shelf-color); box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); z-index: -1; }
 
-        .bookcase-layout { display: flex; flex-direction: column; gap: 15px; width: 1000px; align-items: center; position: relative; background-color: #5c3a18; border-radius: 8px; padding: 30px 20px; box-shadow: inset 0 20px 30px rgba(0,0,0,0.5), 0 25px 50px rgba(0,0,0,0.6); border-left: 15px solid #a67c52; border-right: 15px solid #a67c52; border-top: 15px solid #a67c52; }
+        .bookcase-layout { display: flex; flex-direction: column; gap: clamp(8px, 1.2vh, 15px); width: clamp(600px, 75vw, 1000px); align-items: center; position: relative; background-color: #5c3a18; border-radius: 8px; padding: clamp(16px, 2.5vh, 30px) clamp(12px, 1.5vw, 20px); box-shadow: inset 0 20px 30px rgba(0,0,0,0.5), 0 25px 50px rgba(0,0,0,0.6); border-left: 15px solid #a67c52; border-right: 15px solid #a67c52; border-top: 15px solid #a67c52; }
         .bookcase-layout::after { content: ''; position: absolute; bottom: -30px; left: -15px; width: calc(100% + 30px); height: 45px; background: linear-gradient(to bottom, #7d5a37 0%, #5c3a18 50%, #3e260e 100%); border-radius: 0 0 8px 8px; box-shadow: inset 0 -3px 5px rgba(0,0,0,0.3); border-top: 5px solid rgba(0,0,0,0.4); }
         .shelf-label-container { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); background: linear-gradient(to bottom, #cfb060 0%, #a28035 100%); padding: 6px 20px; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset 0 2px 2px rgba(255,255,255,0.4); border: 1px solid #5a4208; z-index: 20; display: flex; align-items: center; justify-content: center; }
         .shelf-label-container::before, .shelf-label-container::after { content: ''; position: absolute; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; background: #4a3404; border-radius: 50%; box-shadow: inset 0 1px 1px rgba(255,255,255,0.4); }
         .shelf-label-container::before { left: 6px; } .shelf-label-container::after { right: 6px; }
         .shelf-label-inner { background: #fdfaf0; padding: 4px 20px; border-radius: 2px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.4); font-family: 'Anton', sans-serif; color: #222; font-size: 22px; letter-spacing: 2px; border: 1px solid #cbbd9a; min-width: 250px; min-height: 38px; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
-        .bookcase-tier { width: 100%; height: 350px; display: flex; align-items: flex-end; justify-content: center; position: relative; padding: 0 10px; }
-        .tier-wood { position: absolute; bottom: -20px; left: -20px; width: calc(100% + 40px); height: 20px; background: linear-gradient(to bottom, #d6b083 0%, #a67c52 40%, #7d5a37 100%); box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.2); z-index: 0; border-radius: 4px; }
+        /* Tier: full width container so both shelves are the same visual width */
+        .bookcase-tier { width: 100%; height: clamp(200px, 35vh, 350px); display: flex; align-items: flex-end; justify-content: flex-start; position: relative; padding: 0 10px; }
+        /* Wood plank only spans as far as the books — use an inner wrapper that shrinks to content */
+        .tier-books-inner { display: flex; align-items: flex-end; justify-content: flex-start; flex-wrap: nowrap; height: 100%; position: relative; padding-bottom: 0; }
+        .tier-books-inner::after { content: ''; position: absolute; bottom: -20px; left: -10px; right: -10px; height: 20px; background: linear-gradient(to bottom, #d6b083 0%, #a67c52 40%, #7d5a37 100%); box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.2); z-index: 0; border-radius: 4px; }
+        .tier-wood { display: none; }
 
         .render-item { flex-shrink: 0 !important; position: relative; z-index: 2; transition: z-index 0s; }
         .render-item:hover { z-index: 100 !important; }
@@ -115,7 +119,7 @@
         #close-modal { position: absolute; top: 30px; right: 40px; background: none; border: none; font-size: 50px; color: #fff; cursor: pointer; z-index: 3000; transition: transform 0.2s; visibility: hidden; opacity: 0; pointer-events: auto !important; }
         #close-modal:hover { transform: scale(1.1) rotate(90deg); }
         
-        .book-modal-wrapper { width: 1100px; height: 680px; perspective: 2500px; transform-style: preserve-3d; position: relative; }
+        .book-modal-wrapper { width: clamp(700px, 85vw, 1100px); height: clamp(430px, 65vh, 680px); perspective: 2500px; transform-style: preserve-3d; position: relative; }
         .modal-page { position: absolute; width: 50%; height: 100%; right: 0; top: 0; transform-origin: left center; transform-style: preserve-3d; border-radius: 2px 8px 8px 2px; }
         
         .page-front { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 2px 8px 8px 2px; transform: translateZ(0.5px); }
@@ -202,6 +206,639 @@
         .chalk-list li { font-family: 'Kalam', cursive; font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.3; margin-bottom: 8px; position: relative; padding-left: 20px; }
         .chalk-list li::before { content: '•'; position: absolute; left: 5px; color: #f3b255; }
 
+        /* ======================================================
+           LAPTOP / SMALL DESKTOP — proportional scaling 769–1200px
+           ====================================================== */
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .bookcase-tier .shelf-book.active-book.render-item {
+                /* Scale spine books down proportionally */
+                transform: scale(clamp(0.65, 0.08vw + 0.55, 0.9)) !important;
+                transform-origin: bottom center !important;
+                margin: 0 clamp(-8px, -0.5vw, -3px) !important;
+            }
+            .bookcase-tier .filler-book.render-item {
+                transform: scale(clamp(0.65, 0.08vw + 0.55, 0.9)) !important;
+                transform-origin: bottom center !important;
+                margin: 0 clamp(-5px, -0.4vw, -2px) !important;
+            }
+            .bookcase-tier .horizontal-stack.render-item {
+                transform: scale(clamp(0.65, 0.08vw + 0.55, 0.9)) !important;
+                transform-origin: bottom center !important;
+            }
+            .bookcase-tier .easter-egg-vector.render-item {
+                transform: scale(clamp(0.6, 0.08vw + 0.5, 0.85)) !important;
+                transform-origin: bottom center !important;
+            }
+        }
+
+        /* ======================================================
+           MOBILE RESPONSIVE — complete overhaul for screens ≤768px
+           Desktop styles above are NOT touched.
+           ====================================================== */
+        @media (max-width: 768px) {
+
+            /* Hide only face-back on mobile */
+            .face-back { display: none; }
+
+            /* --- GLOBAL MOBILE --- */
+            body { overflow: hidden; touch-action: manipulation; }
+
+            /* --- HEADER --- */
+            header { top: 16px; left: 16px; }
+            header h1 { font-size: 14px; letter-spacing: 1px; }
+
+            /* --- BUTTONS --- */
+            #back-btn {
+                bottom: 16px; left: 16px;
+                padding: 10px 20px; font-size: 14px;
+                border-radius: 24px;
+            }
+            #main-back-btn {
+                bottom: 16px; right: 16px;
+                padding: 10px 16px; font-size: 12px;
+                border-radius: 24px; max-width: 160px;
+                text-align: center; line-height: 1.3;
+            }
+            #info-btn {
+                top: 12px; right: 14px;
+                width: 44px; height: 44px; font-size: 24px;
+            }
+
+            /* =============================================
+               STAGE HOME — vertical stack of 2 books, full 3D
+               Desktop: 300×450, spine depth 30px
+               Mobile scale ~0.533: 160×240, spine depth 16px
+               ============================================= */
+            #stage-home {
+                flex-direction: column;
+                gap: 40px;
+                align-items: center;
+                justify-content: center;
+                padding: 80px 60px 80px;
+                perspective: 1200px;
+            }
+
+            .big-book-wrapper {
+                width: 160px;
+                height: 240px;
+                cursor: pointer;
+            }
+
+            .book-3d {
+                transform: rotateX(10deg) rotateY(35deg);
+            }
+
+            .big-book-wrapper:hover .book-3d,
+            .big-book-wrapper:active .book-3d {
+                transform: rotateX(0deg) rotateY(10deg) translateY(-10px);
+            }
+
+            .face-front {
+                width: 160px;
+                height: 240px;
+                transform: translateZ(16px);
+                border-radius: 1px 5px 5px 1px;
+            }
+
+            /* Spine segments scaled: 11px→5.8px wide, 450px→240px tall, translateZ 30→16 */
+            .face-spine-group { height: 240px; }
+            .spine-segment { left: -2.9px; width: 5.8px; height: 240px; }
+            .spine-1  { transform: rotateY(-9deg)   translateZ(16px); }
+            .spine-2  { transform: rotateY(-27deg)  translateZ(16px); }
+            .spine-3  { transform: rotateY(-45deg)  translateZ(16px); }
+            .spine-4  { transform: rotateY(-63deg)  translateZ(16px); }
+            .spine-5  { transform: rotateY(-81deg)  translateZ(16px); }
+            .spine-6  { transform: rotateY(-99deg)  translateZ(16px); }
+            .spine-7  { transform: rotateY(-117deg) translateZ(16px); }
+            .spine-8  { transform: rotateY(-135deg) translateZ(16px); }
+            .spine-9  { transform: rotateY(-153deg) translateZ(16px); }
+            .spine-10 { transform: rotateY(-171deg) translateZ(16px); }
+
+            .spine-text { left: -16px; width: 32px; height: 240px; transform: rotateY(-90deg) translateZ(17px); }
+            .spine-text span { font-size: 14px; letter-spacing: 2px; }
+
+            /* Paper page edges scaled: 29px → 15px depth */
+            .face-right  { width: 30px; height: 226px; right: -15px; top: 4px;    transform: rotateY(90deg);   }
+            .face-top    { width: 152px; height: 30px; top: -15px;   left: 4px;   transform: rotateX(90deg);   }
+            .face-bottom { width: 152px; height: 30px; bottom: -15px; left: 4px;  transform: rotateX(-90deg);  }
+            .face-top-cap    { width: 30px; height: 30px; top: -15px;    left: -15px; transform: rotateX(90deg);  }
+            .face-bottom-cap { width: 30px; height: 30px; bottom: -15px; left: -15px; transform: rotateX(-90deg); }
+
+            /* =============================================
+               STAGE SHELF (level2 + level3)
+               ============================================= */
+            #stage-shelf {
+                flex-direction: column;
+                align-items: flex-start;
+                overflow: hidden;
+            }
+
+            /* Level 2: compact title */
+            .huge-title {
+                font-size: 28px !important;
+                transform: scaleY(1) !important;
+                letter-spacing: 1px;
+                margin: 0;
+                white-space: normal;
+                line-height: 1;
+                align-self: flex-start;
+            }
+
+            .shelf-master-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 70px 16px 100px;
+                margin-top: 0;
+                gap: 12px;
+                height: 100vh;
+                overflow: hidden;
+                box-sizing: border-box;
+            }
+            /* When bookcase is active (centered-layout), allow vertical scroll */
+            .shelf-master-container.centered-layout {
+                overflow-y: auto !important;
+                overflow-x: hidden;
+                justify-content: flex-start !important;
+                padding: 70px 8px 80px !important;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* ==================================================
+               LEVEL 2 — subcategory spines are LANDSCAPE images
+               (e.g. 550×70px). Show them as horizontal strips
+               stacked vertically in a scrollable column.
+               ================================================== */
+            .stack-layout {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                gap: 10px !important;
+                padding: 8px 0 16px !important;
+                width: 100%;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                flex-wrap: nowrap;
+                margin-left: 0 !important;
+                flex: 1;
+            }
+            .stack-layout::-webkit-scrollbar { display: none; }
+
+            /* Each subcategory book: full-width landscape strip */
+            .stack-layout .shelf-book.render-item {
+                flex-shrink: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                transform: none !important;
+                border-radius: 8px;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+            /* Spine image fills full width, natural aspect ratio (landscape) */
+            .stack-layout .shelf-book .book-spine-img {
+                width: 100%;
+                aspect-ratio: 550 / 70; /* natural landscape spine ratio */
+                height: auto;
+                border-radius: 8px 8px 0 0;
+                background-size: 100% 100%; /* show entire image, no crop */
+                background-repeat: no-repeat;
+            }
+            /* Label below the image */
+            .stack-layout .shelf-book .ig-tooltip {
+                position: relative !important;
+                bottom: auto !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                transform: none !important;
+                opacity: 1 !important;
+                pointer-events: none;
+                font-size: 11px;
+                font-weight: 700;
+                padding: 7px 10px;
+                background: rgba(0,0,0,0.82);
+                color: white;
+                text-align: center;
+                border-radius: 0 0 8px 8px;
+                white-space: normal;
+                line-height: 1.3;
+            }
+
+            .shelf-floor { display: none; }
+            #shelf-floor-level2 { display: none; }
+
+            /* ==================================================
+               LEVEL 3 — module spines are PORTRAIT images
+               (e.g. 60×303px). Show them as standing books in
+               a scrollable vertical shelf.
+               ================================================== */
+            .bookcase-layout {
+                width: 100% !important;
+                max-width: 100%;
+                border-radius: 4px;
+                padding: 48px 12px 16px !important;
+                border-left-width: 8px !important;
+                border-right-width: 8px !important;
+                border-top-width: 8px !important;
+                gap: 0;
+                overflow-y: auto !important;
+                overflow-x: hidden;
+                flex: 1;
+                box-sizing: border-box;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                align-items: stretch;
+            }
+            .bookcase-layout::-webkit-scrollbar { display: none; }
+
+            .shelf-label-container {
+                position: absolute;
+                top: -1px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .shelf-label-inner {
+                font-size: 13px;
+                min-width: unset;
+                min-height: unset;
+                padding: 5px 14px;
+                white-space: nowrap;
+            }
+
+            /* Each bookcase tier: horizontal row of standing spines */
+            .bookcase-tier {
+                height: auto !important;
+                min-height: 0;
+                overflow-x: auto;
+                overflow-y: visible;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                justify-content: flex-start;
+                align-items: flex-end;
+                padding: 8px 4px 20px !important;
+                gap: 4px;
+                position: relative;
+                flex-shrink: 0;
+            }
+            .bookcase-tier::-webkit-scrollbar { display: none; }
+
+            /* Mobile tier-books-inner: scrollable row, wood plank tracks content */
+            .tier-books-inner {
+                height: 100% !important;
+                min-height: 200px;
+                display: flex !important;
+                align-items: flex-end !important;
+                flex-wrap: nowrap !important;
+                gap: 4px !important;
+                position: relative !important;
+                padding-bottom: 0 !important;
+            }
+            .tier-books-inner::after {
+                bottom: -14px !important;
+                height: 14px !important;
+                left: -4px !important;
+                right: -4px !important;
+            }
+
+            .tier-wood { display: none !important; }
+
+            /* Active books: portrait spines shown at natural ratio.
+               Use a fixed height so the spine image is clear & unclipped.
+               Desktop spines avg ~60×303 → ratio 1:5. At 52px wide → 260px tall. */
+            .bookcase-tier .shelf-book.render-item,
+            .bookcase-tier .active-book.render-item {
+                flex-shrink: 0 !important;
+                width: 52px !important;
+                height: 200px !important;
+                position: relative;
+                border-radius: 3px;
+                overflow: hidden;
+                box-shadow: -3px 4px 10px rgba(0,0,0,0.5);
+            }
+            .bookcase-tier .shelf-book .book-spine-img,
+            .bookcase-tier .active-book .book-spine-img {
+                width: 100%;
+                height: 100%;
+                background-size: 100% 100%; /* show entire spine image, no crop */
+                background-repeat: no-repeat;
+                border-radius: 3px;
+            }
+            .bookcase-tier .shelf-book .ig-tooltip,
+            .bookcase-tier .active-book .ig-tooltip {
+                bottom: auto;
+                top: -38px;
+                font-size: 9px;
+                white-space: normal;
+                max-width: 90px;
+                text-align: center;
+                line-height: 1.2;
+            }
+
+            /* Filler books on mobile — smaller and touch-friendly */
+            .bookcase-tier .filler-book {
+                flex-shrink: 0 !important;
+                width: 18px !important;
+                min-width: 12px !important;
+                height: 120px !important;
+                margin: 0 1px !important;
+                border-radius: 2px !important;
+                display: block !important;
+            }
+            .bookcase-tier .filler-book .book-spine-vector-base {
+                border-radius: 2px !important;
+            }
+
+            /* Horizontal stacks on mobile — compact */
+            .bookcase-tier .horizontal-stack {
+                display: flex !important;
+                flex-direction: column-reverse !important;
+                align-items: center !important;
+                width: 80px !important;
+                gap: 1px !important;
+                margin: 0 2px !important;
+                flex-shrink: 0 !important;
+            }
+            .bookcase-tier .horizontal-stack > div {
+                width: 80px !important;
+                height: 14px !important;
+                border-radius: 2px !important;
+                flex-shrink: 0 !important;
+            }
+
+            /* Easter eggs on mobile — smaller decorations */
+            .bookcase-tier .easter-egg-vector {
+                display: block !important;
+                margin: 0 4px !important;
+                flex-shrink: 0 !important;
+                filter: drop-shadow(-2px 4px 4px rgba(0,0,0,0.3)) !important;
+            }
+            .bookcase-tier .vector-vase {
+                width: 24px !important;
+                height: 52px !important;
+            }
+            .bookcase-tier .vase-flower {
+                font-size: 22px !important;
+            }
+            .bookcase-tier .vector-cactus {
+                width: 28px !important;
+                height: 58px !important;
+            }
+            .bookcase-tier .cactus-plant {
+                font-size: 32px !important;
+                bottom: 33% !important;
+            }
+            .bookcase-tier .vector-cat {
+                width: 26px !important;
+                height: 40px !important;
+            }
+            .bookcase-tier .cat-body {
+                width: 22px !important;
+                height: 30px !important;
+                border-radius: 12px 12px 5px 5px !important;
+            }
+            .bookcase-tier .cat-arm-left {
+                width: 8px !important;
+                height: 16px !important;
+                top: 12px !important;
+                left: 0px !important;
+            }
+            .bookcase-tier .cat-collar { width: 18px !important; top: 16px !important; }
+            .bookcase-tier .cat-bell { width: 6px !important; height: 6px !important; top: 18px !important; }
+
+            /* =============================================
+               STAGE MODAL — full screen card swiper
+               ============================================= */
+            #stage-modal {
+                align-items: flex-end;
+                background: rgba(30, 40, 100, 0.97);
+            }
+
+            /* Hide the desktop book widget entirely */
+            .book-modal-wrapper { display: none !important; }
+            .modal-arrow { display: none !important; }
+            #close-modal {
+                top: 16px; right: 16px;
+                font-size: 36px;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+
+            /* Mobile modal: full-screen bottom-sheet card */
+            #mobile-modal-sheet {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 92vh;
+                background: var(--page-paper);
+                border-radius: 20px 20px 0 0;
+                overflow: hidden;
+                position: relative;
+            }
+
+            #mobile-modal-header {
+                background: var(--bg-blue);
+                color: white;
+                padding: 16px 20px 14px;
+                flex-shrink: 0;
+            }
+            #mobile-modal-header h2 {
+                font-size: 20px;
+                font-weight: 900;
+                line-height: 1.2;
+                margin-bottom: 2px;
+            }
+            #mobile-modal-header h4 {
+                font-size: 12px;
+                font-weight: 700;
+                opacity: 0.85;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            #mobile-modal-header p {
+                font-size: 13px;
+                line-height: 1.5;
+                opacity: 0.9;
+                margin-top: 8px;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            #mobile-modal-cta {
+                padding: 10px 20px 12px;
+                background: var(--bg-blue);
+                flex-shrink: 0;
+            }
+            #mobile-modal-cta a {
+                display: block;
+                background: #f3b255;
+                color: #000;
+                text-decoration: none;
+                font-weight: 900;
+                font-size: 15px;
+                border-radius: 30px;
+                padding: 11px 24px;
+                text-align: center;
+            }
+
+            /* Swipeable pages area */
+            #mobile-pages-track-wrapper {
+                flex: 1;
+                overflow: hidden;
+                position: relative;
+            }
+            #mobile-pages-track {
+                display: flex;
+                height: 100%;
+                transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                will-change: transform;
+            }
+            .mobile-page-slide {
+                flex-shrink: 0;
+                width: 100%;
+                height: 100%;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                padding: 14px 16px;
+                background: var(--page-paper);
+            }
+            .mobile-page-slide::-webkit-scrollbar { display: none; }
+
+            .mobile-page-img {
+                width: 100%;
+                height: 220px;
+                object-fit: cover;
+                border-radius: 8px;
+                background-size: cover;
+                background-position: center;
+                flex-shrink: 0;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+
+            .mobile-page-notes {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+            .mobile-note-card {
+                flex: 1;
+                min-width: 100px;
+                background: white;
+                border-radius: 10px;
+                padding: 10px 12px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .mobile-note-card .note-label {
+                font-size: 10px;
+                color: #888;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-family: 'Outfit', sans-serif;
+            }
+            .mobile-note-card .note-value {
+                font-size: 16px;
+                font-weight: 900;
+                color: #333;
+                font-family: 'Anton', sans-serif;
+                letter-spacing: 0.5px;
+                word-break: break-word;
+            }
+            .mobile-bookmark-btn {
+                display: block;
+                background: #71d96b;
+                color: white;
+                text-decoration: none;
+                font-weight: 800;
+                font-size: 14px;
+                border-radius: 30px;
+                padding: 11px 24px;
+                text-align: center;
+                margin-top: 4px;
+                box-shadow: 0 3px 10px rgba(113,217,107,0.4);
+            }
+
+            /* Pagination dots */
+            #mobile-page-dots {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 6px;
+                padding: 10px;
+                background: var(--page-paper);
+                flex-shrink: 0;
+            }
+            .mobile-dot {
+                width: 7px; height: 7px;
+                border-radius: 50%;
+                background: #ccc;
+                transition: background 0.2s, transform 0.2s;
+            }
+            .mobile-dot.active {
+                background: var(--bg-blue);
+                transform: scale(1.4);
+            }
+
+            /* =============================================
+               CHALKBOARD MODAL — mobile
+               ============================================= */
+            .chalkboard-container {
+                width: 95vw;
+                height: 88vh;
+                padding: 16px;
+                border-width: 10px;
+            }
+            .chalk-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .chalk-role-title { font-size: 18px; }
+            .chalk-subtitle { font-size: 13px; }
+            .chalk-list li { font-size: 13px; }
+            .chalk-tray, .chalk-eraser, .chalk-stick { display: none; }
+            #close-chalkboard {
+                top: 10px; right: 10px;
+                width: 40px; height: 40px;
+                font-size: 22px;
+            }
+        }
+
+        /* Extra small phones */
+        @media (max-width: 380px) {
+            header h1 { font-size: 12px; }
+            .big-book-wrapper { width: 130px; height: 195px; }
+            .face-front { width: 130px; height: 195px; transform: translateZ(13px); }
+            .face-spine-group { height: 195px; }
+            .spine-segment { height: 195px; left: -2.4px; width: 4.8px; }
+            .spine-1  { transform: rotateY(-9deg)   translateZ(13px); }
+            .spine-2  { transform: rotateY(-27deg)  translateZ(13px); }
+            .spine-3  { transform: rotateY(-45deg)  translateZ(13px); }
+            .spine-4  { transform: rotateY(-63deg)  translateZ(13px); }
+            .spine-5  { transform: rotateY(-81deg)  translateZ(13px); }
+            .spine-6  { transform: rotateY(-99deg)  translateZ(13px); }
+            .spine-7  { transform: rotateY(-117deg) translateZ(13px); }
+            .spine-8  { transform: rotateY(-135deg) translateZ(13px); }
+            .spine-9  { transform: rotateY(-153deg) translateZ(13px); }
+            .spine-10 { transform: rotateY(-171deg) translateZ(13px); }
+            .face-right  { width: 24px; height: 183px; right: -12px; top: 3px; }
+            .face-top    { width: 124px; height: 24px; top: -12px; left: 3px; }
+            .face-bottom { width: 124px; height: 24px; bottom: -12px; left: 3px; }
+            .face-top-cap    { width: 24px; height: 24px; top: -12px; left: -12px; }
+            .face-bottom-cap { width: 24px; height: 24px; bottom: -12px; left: -12px; }
+            #mobile-modal-header h2 { font-size: 17px; }
+        }
     </style>
 </head>
 <body>
@@ -284,7 +921,159 @@
         </div>
     </div>
 
+    <!-- MOBILE MODAL SHEET (hidden on desktop) -->
+    <div id="mobile-modal-sheet" style="display:none;">
+        <div id="mobile-modal-header">
+            <h2 id="mm-title"></h2>
+            <h4 id="mm-subtitle"></h4>
+            <p id="mm-desc"></p>
+        </div>
+        <div id="mobile-modal-cta">
+            <a id="mm-cta-link" href="#" target="_blank">Lihat Materi</a>
+        </div>
+        <div id="mobile-pages-track-wrapper">
+            <div id="mobile-pages-track"></div>
+        </div>
+        <div id="mobile-page-dots"></div>
+    </div>
+
     <script>
+        /* =============================================
+           MOBILE DETECTION & HELPERS
+           ============================================= */
+        const isMobile = () => window.innerWidth <= 768;
+
+        /* Inject mobile modal sheet into #stage-modal on mobile */
+        function setupMobileModal() {
+            if (!isMobile()) return;
+            const sheet = document.getElementById('mobile-modal-sheet');
+            const stageModal = document.getElementById('stage-modal');
+            if (sheet && !stageModal.contains(sheet)) {
+                stageModal.appendChild(sheet);
+                sheet.style.display = 'flex';
+            }
+        }
+
+        /* Populate and open mobile modal */
+        function openMobileModal(moduleData) {
+            setupMobileModal();
+            const stageModal = document.getElementById('stage-modal');
+            stageModal.style.visibility = 'visible';
+            stageModal.style.opacity = '1';
+
+            document.getElementById('mm-title').textContent = moduleData.title || '';
+            document.getElementById('mm-subtitle').textContent = moduleData.subtitle || '';
+            document.getElementById('mm-desc').textContent = moduleData.description || '';
+            const ctaLink = document.getElementById('mm-cta-link');
+            ctaLink.href = moduleData.btnLink || '#';
+            ctaLink.textContent = moduleData.btnText || 'Lihat Materi';
+
+            const track = document.getElementById('mobile-pages-track');
+            const dotsEl = document.getElementById('mobile-page-dots');
+            track.innerHTML = '';
+            dotsEl.innerHTML = '';
+
+            const pages = moduleData.pages || [];
+            let mobilePageIndex = 0;
+
+            pages.forEach((page, idx) => {
+                const slide = document.createElement('div');
+                slide.className = 'mobile-page-slide';
+
+                // Image
+                const img = document.createElement('div');
+                img.className = 'mobile-page-img';
+                img.style.backgroundImage = `url('${page.contentImg || ''}')`;
+                slide.appendChild(img);
+
+                // Notes
+                const notes = document.createElement('div');
+                notes.className = 'mobile-page-notes';
+
+                const makeCard = (label, value, bg) => {
+                    const c = document.createElement('div');
+                    c.className = 'mobile-note-card';
+                    c.style.background = bg || 'white';
+                    c.innerHTML = `<div class="note-label">${label}</div><div class="note-value">${value}</div>`;
+                    return c;
+                };
+                notes.appendChild(makeCard('Jam Training', page.jam || '-', page.jamColor));
+                notes.appendChild(makeCard('Kode Course', page.kode || '-', page.kodeColor));
+                notes.appendChild(makeCard('Kategori', page.kategori || '-', page.kategoriColor));
+                slide.appendChild(notes);
+
+                // Bookmark
+                if (page.showBookmark && page.bookmarkLink && page.bookmarkLink !== '#') {
+                    const bm = document.createElement('a');
+                    bm.className = 'mobile-bookmark-btn';
+                    bm.href = page.bookmarkLink;
+                    bm.target = '_blank';
+                    bm.textContent = 'Access Here';
+                    slide.appendChild(bm);
+                }
+
+                track.appendChild(slide);
+
+                // Dot
+                const dot = document.createElement('div');
+                dot.className = 'mobile-dot' + (idx === 0 ? ' active' : '');
+                dotsEl.appendChild(dot);
+            });
+
+            const updateDots = (idx) => {
+                dotsEl.querySelectorAll('.mobile-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+            };
+
+            const goTo = (idx) => {
+                mobilePageIndex = Math.max(0, Math.min(idx, pages.length - 1));
+                track.style.transform = `translateX(-${mobilePageIndex * 100}%)`;
+                updateDots(mobilePageIndex);
+            };
+
+            // Touch swipe
+            let touchStartX = 0;
+            track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+            track.addEventListener('touchend', e => {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(dx) > 40) goTo(mobilePageIndex + (dx < 0 ? 1 : -1));
+            }, { passive: true });
+
+            goTo(0);
+
+            const sheet = document.getElementById('mobile-modal-sheet');
+            sheet.style.display = 'flex';
+            gsap.fromTo(sheet, { y: '100%' }, { y: '0%', duration: 0.45, ease: 'power3.out' });
+
+            currentState = 'modal';
+        }
+
+        function closeMobileModal() {
+            const sheet = document.getElementById('mobile-modal-sheet');
+            const stageModal = document.getElementById('stage-modal');
+            gsap.to(sheet, { y: '100%', duration: 0.35, ease: 'power3.in', onComplete: () => {
+                stageModal.style.visibility = 'hidden';
+                stageModal.style.opacity = '0';
+                currentState = 'level3';
+            }});
+        }
+
+        /* Mobile back btn taps on shelf: handle level 2 tap differently */
+        function setupMobileBookTap(el, data, isLevel2) {
+            let tapTimer = null;
+            el.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                if (tapTimer) { clearTimeout(tapTimer); tapTimer = null; }
+                tapTimer = setTimeout(() => {
+                    tapTimer = null;
+                    if (isLevel2) {
+                        SoundEngine.play('click'); openLevel3(data.id);
+                    } else {
+                        SoundEngine.play('click'); openMobileModal(data);
+                    }
+                }, 80);
+            });
+        }
+
         const SoundEngine = {
             ctx: null, noiseBuffer: null, isMelodyPlaying: false,
             pianoNotes: [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50, 1174.66, 1318.51, 1396.91, 1567.98],
@@ -319,6 +1108,9 @@
         generateClouds();
         setTimeout(() => { gsap.to('header', { y: 0, opacity: 1, duration: 1, ease: "power3.out" }); gsap.to('#main-back-btn', { y: 0, opacity: 1, pointerEvents: 'all', duration: 1, ease: "power3.out" }); gsap.to('.big-book-wrapper', { y: 0, opacity: 1, rotationX: 0, scale: 1, duration: 1.4, ease: "back.out(1.2)", stagger: 0.2 }); }, 100);
 
+        /* Mobile: inject sheet on startup */
+        if (isMobile()) { setupMobileModal(); }
+
         const chalkboardData = [
             { role: "STAFF", subtitle: "Berikut 5 materi untuk Banding Staff:", courses: ["Course Conceptual Thinking 1", "Course Analytical Thinking 1", "Course Fundamental Leadership Program for Staff", "Course Basic Leadership Program for Senior Staff", "Course Management Skill 1"] },
             { role: "SUPERVISOR", subtitle: "Berikut 12 materi untuk Banding Supervisor:", courses: ["Course Conceptual Thinking 1", "Course Analytical Thinking 1", "Course Fundamental Leadership Program for Staff", "Course Basic Leadership Program for Senior Staff", "Course Basic Leadership Program for Supervisor", "Course Conceptual Thinking 2", "Course Analytical Thinking 2", "Course Critical Thinking 1", "Course Creative Thinking 1", "Course Complex Problem Solving 1", "Course Management Skill 1", "Course Management Skill 2"] },
@@ -350,7 +1142,7 @@
                                                                                 "height": 303,
                                                                                 "angle": -4.7,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=294",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=501",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Soft Skill Umum/content/Cara Berkomunikasi Asertif Pada Multi-Generasi Y/1.png",
@@ -375,7 +1167,7 @@
                                                                                 "height": 323,
                                                                                 "angle": -3.9,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=501",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=294",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Soft Skill Umum/content/Joy at Work/1.png",
@@ -446,7 +1238,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -457,7 +1249,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -468,7 +1260,7 @@
                                                                                                         "kodeColor": "#fcf3cf",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -479,7 +1271,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fffae6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -490,7 +1282,7 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -501,7 +1293,7 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -512,7 +1304,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -523,7 +1315,7 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -534,7 +1326,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -545,7 +1337,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -556,7 +1348,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -567,7 +1359,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -578,7 +1370,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -589,7 +1381,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fffae6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -600,7 +1392,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fffae6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -611,7 +1403,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -622,7 +1414,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fffae6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -633,7 +1425,7 @@
                                                                                                         "kodeColor": "#fcf3cf",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -644,7 +1436,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -655,7 +1447,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -666,7 +1458,7 @@
                                                                                                         "kodeColor": "#fcf3cf",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -677,7 +1469,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -688,7 +1480,7 @@
                                                                                                         "kodeColor": "#fcf3cf",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -699,7 +1491,7 @@
                                                                                                         "kodeColor": "#fcf3cf",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fffae6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -710,7 +1502,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fffae6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -721,7 +1513,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -732,7 +1524,7 @@
                                                                                                         "kodeColor": "#fcf3cf",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -743,7 +1535,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -754,7 +1546,7 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -765,7 +1557,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -776,7 +1568,7 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -787,7 +1579,7 @@
                                                                                                         "kodeColor": "#fcf3cf",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -798,7 +1590,7 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             },
                                                                                             {
@@ -809,7 +1601,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=427"
                                                                                             }
                                                                                 ]
@@ -824,7 +1616,7 @@
                                                                                 "height": 309,
                                                                                 "angle": -0.2,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=9",
+                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=657",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Onboarding/content/Orientasi Karyawan Baru/1.png",
@@ -834,7 +1626,7 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=545"
                                                                                             },
                                                                                             {
@@ -845,7 +1637,7 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=545"
                                                                                             },
                                                                                             {
@@ -856,7 +1648,7 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Onboarding",
                                                                                                         "kategoriColor": "#fffae6",
-                                                                                                        "showBookmark": false,
+                                                                                                        "showBookmark": true,
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=545"
                                                                                             }
                                                                                 ]
@@ -884,11 +1676,11 @@
                                                                                 "btnText": "Lihat Materi",
                                                                                 "btnLink": "https://summareconlearning.com/course/index.php?categoryid=10",
                                                                                 "pages": [
-                                                                                                                                                                                        {
-                                                                                                        "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Complex Problem Solving/1.png",
-                                                                                                        "jam": "01:25:00",
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Complex Problem Solving/2.png",
+                                                                                                        "jam": "01:01:00",
                                                                                                         "jamColor": "#fdcb6e",
-                                                                                                        "kode": "COTR-0403258",
+                                                                                                        "kode": "COTR-0403259",
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#e6ffe6",
@@ -896,15 +1688,15 @@
                                                                                                         "bookmarkLink": "https://summareconlearning.com/course/view.php?id=497"
                                                                                             },
                                                                                             {
-                                                                                                        "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Complex Problem Solving/2.png",
-                                                                                                        "jam": "01:01:00",
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Complex Problem Solving/1.png",
+                                                                                                        "jam": "01:25:00",
                                                                                                         "jamColor": "#81ecec",
-                                                                                                        "kode": "COTR-0403259",
+                                                                                                        "kode": "COTR-0403258",
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#ffffff",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=498"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=497"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Complex Problem Solving/3.png",
@@ -915,7 +1707,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=499"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=497"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Complex Problem Solving/4.png",
@@ -926,7 +1718,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#ffffff",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=509"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=497"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Complex Problem Solving/5.png",
@@ -937,7 +1729,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#ffffff",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=500"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=497"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -973,7 +1765,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=537"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=536"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Leadership Skills/3.png",
@@ -984,7 +1776,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#e6ffe6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=539"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=536"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Leadership Skills/4.png",
@@ -995,7 +1787,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fcf3cf",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=541"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=536"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Leadership Skills/5.png",
@@ -1006,7 +1798,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#ffffff",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=546"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=536"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Leadership Skills/6.png",
@@ -1017,7 +1809,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#ffffff",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=548"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=536"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1053,7 +1845,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=555"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=554"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Management Skills/3.png",
@@ -1064,7 +1856,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#e6ffe6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=556"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=554"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Management Skills/4.png",
@@ -1075,7 +1867,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#e6ffe6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=561"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=554"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Management Skills/5.png",
@@ -1086,7 +1878,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=562"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=554"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1122,7 +1914,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=302"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/3.png",
@@ -1133,7 +1925,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fcf3cf",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=304"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/4.png",
@@ -1144,7 +1936,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fcf3cf",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=474"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/5.png",
@@ -1155,7 +1947,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#ffffff",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=305"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/6.png",
@@ -1166,7 +1958,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#e6ffe6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=410"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/7.png",
@@ -1177,29 +1969,29 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=409"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/8.png",
                                                                                                         "jam": "00:58:00",
                                                                                                         "jamColor": "#d2b4de",
-                                                                                                         "kode": "COTR-170524",
+                                                                                                        "kode": "COTR-1705242",
                                                                                                         "kodeColor": "#fcf3cf",
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=411"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/10.png",
                                                                                                         "jam": "00:58:00",
                                                                                                         "jamColor": "#ffeaa7",
-                                                                                                        "kode": "COTR-1705242",
+                                                                                                        "kode": "COTR170524",
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#e6ffe6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=475"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/9.png",
@@ -1210,7 +2002,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#ffffff",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=412"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/11.png",
@@ -1221,7 +2013,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#ffffff",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=493"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/12.png",
@@ -1232,7 +2024,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#ffffff",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=494"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/13.png",
@@ -1243,7 +2035,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fcf3cf",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=508"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/14.png",
@@ -1254,7 +2046,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=496"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/15.png",
@@ -1265,7 +2057,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=473"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/16.png",
@@ -1276,7 +2068,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fcf3cf",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=490"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/17.png",
@@ -1287,7 +2079,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#e6ffe6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=507"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Based On Learning Matrix/content/Thinking Skills/18.png",
@@ -1298,7 +2090,7 @@
                                                                                                         "kategori": "Based On Learning Matrix",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=492"
+                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=296"
                                                                                             }
                                                                                 ]
                                                                     }
@@ -1389,7 +2181,7 @@
                                                                                 "height": 316,
                                                                                 "angle": -4.1,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=309",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=347",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Engineering/1.png",
@@ -1399,8 +2191,8 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=347"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1414,7 +2206,7 @@
                                                                                 "height": 290,
                                                                                 "angle": -2.4,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=311",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=240",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Facility & Fit Out/1.png",
@@ -1424,8 +2216,8 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=240"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1439,7 +2231,7 @@
                                                                                 "height": 300,
                                                                                 "angle": -0.4,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=312",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=224",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Finance & Accounting/1.png",
@@ -1449,8 +2241,8 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=224"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1464,7 +2256,7 @@
                                                                                 "height": 301,
                                                                                 "angle": 2.9,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=590",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=135",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/General Affair/1.png",
@@ -1474,8 +2266,8 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=137"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1489,7 +2281,7 @@
                                                                                 "height": 310,
                                                                                 "angle": 2.1,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=313",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=309",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Human Resources Management/1.png",
@@ -1499,8 +2291,8 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=309"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1514,7 +2306,7 @@
                                                                                 "height": 314,
                                                                                 "angle": 1.8,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=314",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=244",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Information Technology/1.png",
@@ -1524,8 +2316,8 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=244"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1539,7 +2331,7 @@
                                                                                 "height": 300,
                                                                                 "angle": 0.6,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=316",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=257",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Leasing/1.png",
@@ -1549,8 +2341,8 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=389"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1564,8 +2356,19 @@
                                                                                 "height": 307,
                                                                                 "angle": -0.9,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=587",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=241",
                                                                                 "pages": [
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Marketing/1.png",
+                                                                                                        "jam": "03:16:00",
+                                                                                                        "jamColor": "#f7b2dd",
+                                                                                                        "kode": "COSL-10062422",
+                                                                                                        "kodeColor": "#fcf3cf",
+                                                                                                        "kategori": "Summarecon Mengajar",
+                                                                                                        "kategoriColor": "#e6ffe6",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "#"
+                                                                                            },
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Marketing/2.png",
                                                                                                         "jam": "00:09:00",
@@ -1575,7 +2378,7 @@
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#e6ffe6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=255"
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1589,7 +2392,7 @@
                                                                                 "height": 321,
                                                                                 "angle": -3.9,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=325",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=405",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Operation - Property Management/1.png",
@@ -1599,8 +2402,8 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=241"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1614,7 +2417,7 @@
                                                                                 "height": 303,
                                                                                 "angle": 3.2,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=326",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=278",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Operational Support/1.png",
@@ -1624,8 +2427,8 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=393"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1639,7 +2442,7 @@
                                                                                 "height": 290,
                                                                                 "angle": 2.9,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=610",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=394",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Perizinan/1.png",
@@ -1649,8 +2452,8 @@
                                                                                                         "kodeColor": "#e6ffe6",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=413"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1664,7 +2467,7 @@
                                                                                 "height": 323,
                                                                                 "angle": 5.0,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=327",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=370",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Planning & Design/1.png",
@@ -1675,7 +2478,18 @@
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#fcf3cf",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=268"
+                                                                                                        "bookmarkLink": "#"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Planning & Design/2.png",
+                                                                                                        "jam": "00:05:00",
+                                                                                                        "jamColor": "#f5cba7",
+                                                                                                        "kode": "COSL-2342443",
+                                                                                                        "kodeColor": "#ffffff",
+                                                                                                        "kategori": "Summarecon Mengajar",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1689,7 +2503,7 @@
                                                                                 "height": 324,
                                                                                 "angle": -3.6,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=328",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=369",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Project/1.png",
@@ -1699,8 +2513,8 @@
                                                                                                         "kodeColor": "#fffae6",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#fcf3cf",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=278"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1714,7 +2528,7 @@
                                                                                 "height": 290,
                                                                                 "angle": -0.3,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=330",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=389",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Purchasing/1.png",
@@ -1724,8 +2538,8 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#ffffff",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=370"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1739,7 +2553,7 @@
                                                                                 "height": 328,
                                                                                 "angle": 2.6,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=331",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=255",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Quantity Survey/1.png",
@@ -1749,8 +2563,8 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=206"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1764,7 +2578,7 @@
                                                                                 "height": 317,
                                                                                 "angle": -3.4,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=606",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=413",
                                                                                 "pages": [
                                                                                             {
                                                                                                         "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Safety/1.png",
@@ -1774,8 +2588,8 @@
                                                                                                         "kodeColor": "#ffffff",
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#e6ffe6",
-                                                                                                        "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=369"
+                                                                                                        "showBookmark": false,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     },
@@ -1789,10 +2603,10 @@
                                                                                 "height": 280,
                                                                                 "angle": 5.3,
                                                                                 "btnText": "Lihat Materi",
-                                                                                "btnLink": "https://summareconlearning.com/course/index.php?categoryid=333",
+                                                                                "btnLink": "https://summareconlearning.com/course/view.php?id=268",
                                                                                 "pages": [
                                                                                             {
-                                                                                                        "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Town Management/1.jpeg",
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Town Management/1.png",
                                                                                                         "jam": "00:12:00",
                                                                                                         "jamColor": "#ff9191",
                                                                                                         "kode": "COSL-10062456",
@@ -1800,7 +2614,18 @@
                                                                                                         "kategori": "Summarecon Mengajar",
                                                                                                         "kategoriColor": "#fffae6",
                                                                                                         "showBookmark": true,
-                                                                                                        "bookmarkLink": "https://summareconlearning.com/course/view.php?id=288"
+                                                                                                        "bookmarkLink": "#"
+                                                                                            },
+                                                                                            {
+                                                                                                        "contentImg": "./asset/img/SMBOOK/Summarecon Mengajar/content/Town Management/2.png",
+                                                                                                        "jam": "00:06:00",
+                                                                                                        "jamColor": "#74b9ff",
+                                                                                                        "kode": "COSL-10062468",
+                                                                                                        "kodeColor": "#fffae6",
+                                                                                                        "kategori": "Summarecon Mengajar",
+                                                                                                        "kategoriColor": "#ffffff",
+                                                                                                        "showBookmark": true,
+                                                                                                        "bookmarkLink": "#"
                                                                                             }
                                                                                 ]
                                                                     }
@@ -1823,28 +2648,49 @@
         closeChalkboardBtn.addEventListener('mouseenter', () => SoundEngine.play('hover'));
         closeChalkboardBtn.addEventListener('click', () => { SoundEngine.play('click'); gsap.to(stageChalkboard, { opacity: 0, duration: 0.3, onComplete: () => { gsap.set(stageChalkboard, { visibility: 'hidden' }); } }); gsap.to('.chalkboard-container', { scale: 0.8, y: 50, duration: 0.3, ease: "power2.in" }); });
 
-        document.querySelectorAll('.big-book-wrapper').forEach(book => { book.addEventListener('mouseenter', () => SoundEngine.play('hover')); book.addEventListener('click', () => { SoundEngine.play('click'); openLevel2(book.getAttribute('data-cat')); }); });
+        document.querySelectorAll('.big-book-wrapper').forEach(book => { book.addEventListener('mouseenter', () => SoundEngine.play('hover')); book.addEventListener('click', () => { SoundEngine.play('click'); openLevel2(book.getAttribute('data-cat')); }); if(isMobile()) { book.addEventListener('touchend', (e) => { e.preventDefault(); SoundEngine.play('click'); openLevel2(book.getAttribute('data-cat')); }); } });
 
         let currentState = 'home'; let activeCategory = null; let activeSubcategory = null; let modalTimeline = null;
         const backBtn = document.getElementById('back-btn'); const container = document.getElementById('books-container'); const hugeTitle = document.getElementById('huge-title-text'); const layoutContainer = document.getElementById('shelf-layout-container');
 
         function generateHorizontalStackHTML(numBooks = 2) { 
+            const mobile = isMobile();
             let totalHeight = 0; let booksHTML = ''; 
-            for (let i = 0; i < numBooks; i++) { const width = Math.random() * 20 + 200; const height = Math.random() * 10 + 35; const hue = Math.random() * 360; const sat = Math.random() * 30 + 30; const light = Math.random() * 20 + 30; totalHeight += height + 1; const stripeColor = `hsl(${hue}, ${sat}%, ${light + 20}%)`; booksHTML += `<div style="width: ${width}px; height: ${height}px; position: relative;"><div class="book-spine-vector-base" style="background-color: hsl(${hue}, ${sat}%, ${light}%);"><div style="content: ''; position: absolute; left: 10px; top: 10px; bottom: 10px; width: 2px; background: ${stripeColor}; border-radius: 1px;"></div></div><div class="ig-tooltip">🎵</div></div>`; } 
+            for (let i = 0; i < numBooks; i++) { 
+                const width = mobile ? (Math.random() * 20 + 60) : (Math.random() * 20 + 200); 
+                const height = mobile ? (Math.random() * 5 + 12) : (Math.random() * 10 + 35); 
+                const hue = Math.random() * 360; const sat = Math.random() * 30 + 30; const light = Math.random() * 20 + 30; totalHeight += height + 1; const stripeColor = `hsl(${hue}, ${sat}%, ${light + 20}%)`; 
+                booksHTML += `<div style="width: ${width}px; height: ${height}px; position: relative;"><div class="book-spine-vector-base" style="background-color: hsl(${hue}, ${sat}%, ${light}%);"><div style="content: ''; position: absolute; left: ${mobile?4:10}px; top: ${mobile?3:10}px; bottom: ${mobile?3:10}px; width: 2px; background: ${stripeColor}; border-radius: 1px;"></div></div><div class="ig-tooltip">🎵</div></div>`; 
+            } 
             const angle = (Math.random() - 0.5) * 5; const offsetX = (Math.random() - 0.5) * 10; 
-            return `<div class="horizontal-stack render-item" style="width: 220px; height: ${totalHeight}px; transform: rotate(${angle}deg) translateX(${offsetX}px); flex-shrink: 0 !important;">${booksHTML}</div>`; 
+            const stackW = mobile ? 80 : 220;
+            return `<div class="horizontal-stack render-item" style="width: ${stackW}px; height: ${totalHeight}px; transform: rotate(${angle}deg) translateX(${offsetX}px); flex-shrink: 0 !important;">${booksHTML}</div>`; 
         }
 
         function generateFillerBookHTML(forcedWidth) { 
-            const width = forcedWidth; const height = Math.random() * 80 + 240; const hue = Math.random() * 360; const sat = Math.random() * 40 + 30; const light = Math.random() * 30 + 20; const angle = (Math.random() - 0.5) * 6; const stripeColor = `hsl(${hue}, ${sat}%, ${light + 15}%)`; const bookmarkHTML = Math.random() > 0.7 ? `<div class="book-bookmark-ribbon" style="background: hsl(${Math.random()*360}, 70%, 50%);"></div>` : ''; 
-            return `<div class="filler-book render-item" style="width: ${width}px; height: ${height}px; transform: rotate(${angle}deg); flex-shrink: 0 !important;"><div class="book-spine-vector-base" style="background-color: hsl(${hue}, ${sat}%, ${light}%);"></div><div class="ig-tooltip">🎵</div><div style="content: ''; position: absolute; bottom: 10px; left: 5px; right: 5px; height: 3px; background: ${stripeColor}; border-radius: 1px; z-index: 5;"></div>${bookmarkHTML}</div>`; 
+            const mobile = isMobile();
+            const width = forcedWidth; 
+            const height = mobile ? (Math.random() * 30 + 90) : (Math.random() * 80 + 240); 
+            const hue = Math.random() * 360; const sat = Math.random() * 40 + 30; const light = Math.random() * 30 + 20; const angle = (Math.random() - 0.5) * 6; const stripeColor = `hsl(${hue}, ${sat}%, ${light + 15}%)`; 
+            const bookmarkHTML = Math.random() > 0.7 ? `<div class="book-bookmark-ribbon" style="background: hsl(${Math.random()*360}, 70%, 50%);"></div>` : ''; 
+            return `<div class="filler-book render-item" style="width: ${width}px; height: ${height}px; transform: rotate(${angle}deg); flex-shrink: 0 !important;"><div class="book-spine-vector-base" style="background-color: hsl(${hue}, ${sat}%, ${light}%);"></div><div class="ig-tooltip">🎵</div><div style="content: ''; position: absolute; bottom: ${mobile?4:10}px; left: 5px; right: 5px; height: 3px; background: ${stripeColor}; border-radius: 1px; z-index: 5;"></div>${bookmarkHTML}</div>`; 
         }
 
         function populateShelf(activeBooksArray, hasVase, hasCactus, hasCat) {
-            const targetWidth = 860; let currentWidth = 0; let shelfItems = [];
-            if (hasVase) { shelfItems.push({ type: 'vase' }); currentWidth += 80; } if (hasCactus) { shelfItems.push({ type: 'cactus' }); currentWidth += 90; } if (hasCat) { shelfItems.push({ type: 'cat' }); currentWidth += 80; } 
-            activeBooksArray.forEach(book => { shelfItems.push({ ...book, type: 'active' }); currentWidth += book.width + 4; });
-            let sanity = 0; while(currentWidth < targetWidth && sanity < 50) { sanity++; let isStack = Math.random() > 0.85; let remainingSpace = targetWidth - currentWidth; if (isStack && remainingSpace > 240) { shelfItems.push({ type: 'stack', html: generateHorizontalStackHTML(Math.floor(Math.random()*2+2)) }); currentWidth += 226; } else { let fillerWidth = Math.random() * 25 + 35; let totalFillerSpaceNeeded = fillerWidth + 2; if (remainingSpace < 40) break; if (totalFillerSpaceNeeded > remainingSpace) fillerWidth = remainingSpace - 2; shelfItems.push({ type: 'filler', html: generateFillerBookHTML(fillerWidth) }); currentWidth += fillerWidth + 2; } }
+            const mobile = isMobile();
+            const targetWidth = mobile ? Math.max(window.innerWidth - 60, 200) : 860; 
+            const vaseW = mobile ? 30 : 80; const cactusW = mobile ? 35 : 90; const catW = mobile ? 30 : 80;
+            let currentWidth = 0; let shelfItems = [];
+            if (hasVase) { shelfItems.push({ type: 'vase' }); currentWidth += vaseW; } 
+            if (hasCactus) { shelfItems.push({ type: 'cactus' }); currentWidth += cactusW; } 
+            if (hasCat) { shelfItems.push({ type: 'cat' }); currentWidth += catW; } 
+            activeBooksArray.forEach(book => { 
+                const bw = mobile ? 52 : book.width;
+                shelfItems.push({ ...book, type: 'active' }); currentWidth += bw + 4; 
+            });
+            const stackThreshold = mobile ? 100 : 240; const stackW = mobile ? 84 : 226;
+            const fillerMin = mobile ? 14 : 35; const fillerRange = mobile ? 10 : 25; const fillerMinGap = mobile ? 20 : 40;
+            let sanity = 0; while(currentWidth < targetWidth && sanity < 50) { sanity++; let isStack = Math.random() > 0.85; let remainingSpace = targetWidth - currentWidth; if (isStack && remainingSpace > stackThreshold) { shelfItems.push({ type: 'stack', html: generateHorizontalStackHTML(Math.floor(Math.random()*2+2)) }); currentWidth += stackW; } else { let fillerWidth = Math.random() * fillerRange + fillerMin; let totalFillerSpaceNeeded = fillerWidth + 2; if (remainingSpace < fillerMinGap) break; if (totalFillerSpaceNeeded > remainingSpace) fillerWidth = remainingSpace - 2; shelfItems.push({ type: 'filler', html: generateFillerBookHTML(fillerWidth) }); currentWidth += fillerWidth + 2; } }
             for (let i = shelfItems.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shelfItems[i], shelfItems[j]] = [shelfItems[j], shelfItems[i]]; } return shelfItems;
         }
 
@@ -1853,14 +2699,14 @@
             if(layoutType === 'stack') {
                 container.className = 'stack-layout'; container.innerHTML = '<div class="shelf-floor" id="shelf-floor-level2"></div>';
                 booksArray.forEach((book, i) => { const html = `<div class="shelf-book render-item" style="width: ${book.width}px; height: ${book.height}px; flex-shrink: 0 !important;"><div class="book-spine-img" style="background-image: url('${book.spineImg}');"></div><div class="ig-tooltip">${book.title}</div></div>`; container.insertAdjacentHTML('beforeend', html); });
-                document.querySelectorAll('.shelf-book').forEach((el, index) => { const ogAngle = booksArray[index].angle || 0; const ogOffsetX = booksArray[index].offsetX || 0; el.addEventListener('mouseenter', () => { SoundEngine.play('hover'); gsap.to(el, { x: ogOffsetX + 40, rotation: 0, duration: 0.3, ease: "power2.out" }); }); el.addEventListener('mouseleave', () => gsap.to(el, { x: ogOffsetX, rotation: ogAngle, duration: 0.3, ease: "power2.out" })); el.addEventListener('click', () => { SoundEngine.play('click'); openLevel3(booksArray[index].id); }); });
+                document.querySelectorAll('.shelf-book').forEach((el, index) => { const ogAngle = booksArray[index].angle || 0; const ogOffsetX = booksArray[index].offsetX || 0; el.addEventListener('mouseenter', () => { SoundEngine.play('hover'); gsap.to(el, { x: ogOffsetX + 40, rotation: 0, duration: 0.3, ease: "power2.out" }); }); el.addEventListener('mouseleave', () => gsap.to(el, { x: ogOffsetX, rotation: ogAngle, duration: 0.3, ease: "power2.out" })); el.addEventListener('click', () => { SoundEngine.play('click'); openLevel3(booksArray[index].id); }); if(isMobile()) setupMobileBookTap(el, booksArray[index], true); });
             } else if (layoutType === 'bookcase') {
                 container.className = 'bookcase-layout'; let htmlStructure = `<div class="shelf-label-container"><div class="shelf-label-inner" id="dynamic-shelf-label"></div></div>`;
                 const totalBooks = booksArray.length; let shelf1Items = []; let shelf2Items = [];
                 if (totalBooks <= 10) { shelf1Items = populateShelf(booksArray, false, false, true); shelf2Items = populateShelf([], true, true, false); } 
                 else { let s1 = []; let s2 = []; booksArray.forEach((b,i) => i%2===0 ? s1.push(b) : s2.push(b)); let vaseOnShelf1 = Math.random() > 0.5; let catOnShelf1 = Math.random() > 0.5; shelf1Items = populateShelf(s1, vaseOnShelf1, !vaseOnShelf1, catOnShelf1); shelf2Items = populateShelf(s2, !vaseOnShelf1, vaseOnShelf1, !catOnShelf1); }
                 const buildShelfHTML = (shelfArr, shelfId) => {
-                    let html = `<div class="bookcase-tier" id="${shelfId}"><div class="tier-wood"></div>`;
+                    let html = `<div class="bookcase-tier" id="${shelfId}"><div class="tier-books-inner">`;
                     for(let i=0; i<shelfArr.length; i++) {
                         let item = shelfArr[i];
                         if (item.type === 'active') { html += `<div class="shelf-book active-book render-item" style="width: ${item.width}px; height: ${item.height}px; flex-shrink: 0 !important;"><div class="book-spine-img" style="background-image: url('${item.spineImg}');"></div><div class="ig-tooltip">${item.title}</div></div>`; } 
@@ -1868,7 +2714,7 @@
                         else if (item.type === 'vase') { html += `<div class="easter-egg-vector decor-vase render-item" style="flex-shrink: 0 !important;"><div class="vector-vase"><div class="vase-body"></div><div class="vase-flower">🌸</div></div></div>`; } 
                         else if (item.type === 'cactus') { html += `<div class="easter-egg-vector decor-cactus render-item" style="flex-shrink: 0 !important;"><div class="vector-cactus"><div class="cactus-pot"></div><div class="cactus-plant">🌵</div></div></div>`; }
                         else if (item.type === 'cat') { html += `<div class="easter-egg-vector decor-cat render-item" style="flex-shrink: 0 !important;"><div class="vector-cat"><div class="cat-arm-left"></div><div class="cat-body"><div class="cat-ear left"></div><div class="cat-ear right"></div><div class="cat-face-inner"><div class="cat-eye"></div><div class="cat-eye"></div></div><div class="cat-collar"></div><div class="cat-bell"></div></div></div></div>`; }
-                    } html += `</div>`; return html;
+                    } html += `</div></div>`; return html;
                 };
                 container.innerHTML = htmlStructure + buildShelfHTML(shelf1Items, 'shelf-1') + buildShelfHTML(shelf2Items, 'shelf-2');
                 document.querySelectorAll('.filler-book, .horizontal-stack > div').forEach((el, index) => el.addEventListener('mouseenter', () => SoundEngine.play('piano', index)));
@@ -1879,7 +2725,7 @@
                         let el = DOMBooks[domIndex]; let initialRotation = 0; 
                         el.addEventListener('mouseenter', () => { SoundEngine.play('melody'); initialRotation = gsap.getProperty(el, "rotation") || 0; gsap.to(el, { y: -50, z: 50, scale: 1.05, rotation: 0, duration: 0.3, ease: "back.out(1.5)"}); });
                         el.addEventListener('mouseleave', () => gsap.to(el, { y: 0, z: 0, scale: 1, rotation: initialRotation, duration: 0.3, ease: "power2.out"}));
-                        el.addEventListener('click', () => { SoundEngine.play('click'); openModal(item); }); domIndex++;
+                        el.addEventListener('click', () => { SoundEngine.play('click'); openModal(item); }); if(isMobile()) setupMobileBookTap(el, item, false); domIndex++;
                     }
                 });
 
@@ -1892,15 +2738,33 @@
             gsap.to('#info-btn', { opacity: 0, scale: 0, duration: 0.3, pointerEvents: 'none' });
             gsap.to('#main-back-btn', { opacity: 0, duration: 0.3, pointerEvents: 'none' });
             gsap.set(container, { clearProps: 'all' }); layoutContainer.classList.remove('centered-layout'); hugeTitle.innerText = libraryData[categoryKey].mainTitle; renderBooks(libraryData[categoryKey].subcategories, 'stack');
-            const tl = gsap.timeline(); tl.to('#cloud-container', { opacity: 0, duration: 0.5 }, 0).to('.big-book-wrapper', { x: (i) => i === 0 ? -800 : 800, opacity: 0, duration: 0.8, ease: "power3.inOut" }, 0).set('#stage-home', { visibility: 'hidden' }).set('#stage-shelf', { visibility: 'visible' }).fromTo(['.huge-title', '.shelf-floor'], { opacity: 0, x: -100 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out", stagger: 0.2 }).to(backBtn, { autoAlpha: 1, pointerEvents: 'all', duration: 0.3 }, "<").fromTo('.render-item', { y: -800, opacity: 0, rotation: 0, x: 0 }, { y: 0, opacity: 1, x: (i) => libraryData[categoryKey].subcategories[i].offsetX || 0, rotation: (i) => libraryData[categoryKey].subcategories[i].angle || 0, duration: 0.8, ease: "bounce.out", stagger: 0.15 }, "-=0.2");
+            const tl = gsap.timeline();
+            if (isMobile()) {
+                tl.to('#cloud-container', { opacity: 0, duration: 0.5 }, 0)
+                  .to('.big-book-wrapper', { y: -300, opacity: 0, duration: 0.5, ease: "power3.inOut" }, 0)
+                  .set('#stage-home', { visibility: 'hidden' })
+                  .set('#stage-shelf', { visibility: 'visible' })
+                  .fromTo('.huge-title', { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" })
+                  .to(backBtn, { autoAlpha: 1, pointerEvents: 'all', duration: 0.3 }, "<")
+                  .fromTo('.render-item', { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.08 }, "-=0.2");
+            } else {
+                tl.to('#cloud-container', { opacity: 0, duration: 0.5 }, 0).to('.big-book-wrapper', { x: (i) => i === 0 ? -800 : 800, opacity: 0, duration: 0.8, ease: "power3.inOut" }, 0).set('#stage-home', { visibility: 'hidden' }).set('#stage-shelf', { visibility: 'visible' }).fromTo(['.huge-title', '.shelf-floor'], { opacity: 0, x: -100 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out", stagger: 0.2 }).to(backBtn, { autoAlpha: 1, pointerEvents: 'all', duration: 0.3 }, "<").fromTo('.render-item', { y: -800, opacity: 0, rotation: 0, x: 0 }, { y: 0, opacity: 1, x: (i) => libraryData[categoryKey].subcategories[i].offsetX || 0, rotation: (i) => libraryData[categoryKey].subcategories[i].angle || 0, duration: 0.8, ease: "bounce.out", stagger: 0.15 }, "-=0.2");
+            }
         }
 
         function openLevel3(subcategoryId) {
             if(currentState !== 'level2') return; currentState = 'level3'; activeSubcategory = subcategoryId;
             const subData = libraryData[activeCategory].subcategories.find(s => s.id === subcategoryId);
-            const tl = gsap.timeline(); tl.to('.render-item', { y: 600, opacity: 0, duration: 0.4, ease: "power2.in", stagger: 0.05 }).to('.huge-title', { opacity: 0, x: -20, duration: 0.3 }, "<").to('#shelf-floor-level2', { scaleY: 0.2, opacity: 0, duration: 0.3, ease: "power2.inOut" }, "<").add(() => {
-                  layoutContainer.classList.add('centered-layout'); hugeTitle.style.display = 'none'; renderBooks(subData.modules, 'bookcase'); const labelEl = document.getElementById('dynamic-shelf-label'); gsap.set('.render-item', { y: -800, opacity: 0 }); const tl2 = gsap.timeline();
-                  tl2.fromTo('.bookcase-layout', { y: window.innerHeight, opacity: 1 }, { y: 0, duration: 0.9, ease: "power3.out", onStart: () => SoundEngine.play('heavyWoosh') }).add(() => { let i = 0; let txt = subData.title; labelEl.innerHTML = ''; let timer = setInterval(() => { if(i < txt.length) { labelEl.innerHTML += txt.charAt(i); SoundEngine.play('hover'); i++; } else clearInterval(timer); }, 50); }).to({}, { duration: subData.title.length * 0.05 + 0.2 }).to('#shelf-1 .render-item', { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: { each: 0.06, from: "start" } }).to('#shelf-2 .render-item', { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: { each: 0.06, from: "end" } }, "-=0.15"); 
+            const tl = gsap.timeline(); tl.to('.render-item', { y: isMobile() ? 0 : 600, x: isMobile() ? 60 : 0, opacity: 0, duration: 0.3, ease: "power2.in", stagger: 0.04 }).to('.huge-title', { opacity: 0, x: -20, duration: 0.3 }, "<").to('#shelf-floor-level2', { scaleY: 0.2, opacity: 0, duration: 0.3, ease: "power2.inOut" }, "<").add(() => {
+                  layoutContainer.classList.add('centered-layout'); hugeTitle.style.display = 'none'; renderBooks(subData.modules, 'bookcase'); const labelEl = document.getElementById('dynamic-shelf-label'); gsap.set('.render-item', { y: isMobile() ? 0 : -800, opacity: 0 });
+                  if (isMobile()) {
+                      gsap.fromTo('.bookcase-layout', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", onStart: () => SoundEngine.play('heavyWoosh') });
+                      let i = 0; let txt = subData.title; if(labelEl) { labelEl.innerHTML = ''; let timer = setInterval(() => { if(i < txt.length) { labelEl.innerHTML += txt.charAt(i); i++; } else clearInterval(timer); }, 40); }
+                      gsap.to('.render-item', { opacity: 1, duration: 0.4, stagger: 0.05, delay: 0.2 });
+                  } else {
+                      const tl2 = gsap.timeline();
+                      tl2.fromTo('.bookcase-layout', { y: window.innerHeight, opacity: 1 }, { y: 0, duration: 0.9, ease: "power3.out", onStart: () => SoundEngine.play('heavyWoosh') }).add(() => { let i = 0; let txt = subData.title; labelEl.innerHTML = ''; let timer = setInterval(() => { if(i < txt.length) { labelEl.innerHTML += txt.charAt(i); SoundEngine.play('hover'); i++; } else clearInterval(timer); }, 50); }).to({}, { duration: subData.title.length * 0.05 + 0.2 }).to('#shelf-1 .render-item', { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: { each: 0.06, from: "start" } }).to('#shelf-2 .render-item', { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: { each: 0.06, from: "end" } }, "-=0.15");
+                  }
               });
         }
 
@@ -2035,6 +2899,11 @@
 
         function openModal(moduleData) {
             if(currentState !== 'level3') return;
+
+            if (isMobile()) {
+                openMobileModal(moduleData);
+                return;
+            }
             
             currentModuleData = moduleData;
             currentSpreadIndex = 0;
@@ -2063,6 +2932,7 @@
 
         document.getElementById('close-modal').addEventListener('mouseenter', () => SoundEngine.play('hover'));
         document.getElementById('close-modal').addEventListener('click', () => {
+            if (isMobile() && currentState === 'modal') { closeMobileModal(); return; }
             if (modalTimeline && currentState === 'modal') {
                 SoundEngine.play('paperWoosh'); currentState = 'animating'; 
                 gsap.to(['#btn-prev-page', '#btn-next-page', '#close-modal'], { autoAlpha: 0, duration: 0.2 }); 
@@ -2072,16 +2942,39 @@
 
         backBtn.addEventListener('mouseenter', () => SoundEngine.play('hover'));
         backBtn.addEventListener('click', () => {
-            if (currentState === 'modal') { document.getElementById('close-modal').click(); } 
+            if (currentState === 'modal') {
+                if (isMobile()) { closeMobileModal(); }
+                else { document.getElementById('close-modal').click(); }
+            }
             else if (currentState === 'level3') {
                 const tl = gsap.timeline({ onComplete: () => { currentState = 'level2'; activeSubcategory = null; }});
-                tl.to('.bookcase-layout', { y: window.innerHeight, duration: 0.8, ease: "power3.in", onStart: () => SoundEngine.play('heavyWoosh') }).add(() => { layoutContainer.classList.remove('centered-layout'); hugeTitle.style.display = 'block'; hugeTitle.innerText = libraryData[activeCategory].mainTitle; gsap.set(container, { clearProps: 'all' }); renderBooks(libraryData[activeCategory].subcategories, 'stack'); const tl2 = gsap.timeline(); tl2.to('.huge-title', { opacity: 1, x: 0, duration: 0.3 }).fromTo('#shelf-floor-level2', { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.3 }, "<").fromTo('.render-item', { y: -800, x: 0, opacity: 0, rotation: 0 }, { y: 0, opacity: 1, x: (i) => libraryData[activeCategory].subcategories[i].offsetX || 0, rotation: (i) => libraryData[activeCategory].subcategories[i].angle || 0, duration: 0.8, ease: "bounce.out", stagger: 0.15 }, "<"); });
+                if (isMobile()) {
+                    tl.to('.bookcase-layout', { opacity: 0, y: 30, duration: 0.4, ease: "power3.in", onStart: () => SoundEngine.play('heavyWoosh') }).add(() => {
+                        layoutContainer.classList.remove('centered-layout'); hugeTitle.style.display = 'block'; hugeTitle.innerText = libraryData[activeCategory].mainTitle; gsap.set(container, { clearProps: 'all' }); renderBooks(libraryData[activeCategory].subcategories, 'stack');
+                        gsap.fromTo('.huge-title', { opacity: 0 }, { opacity: 1, duration: 0.3 });
+                        gsap.fromTo('.render-item', { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, stagger: 0.06 });
+                    });
+                } else {
+                    tl.to('.bookcase-layout', { y: window.innerHeight, duration: 0.8, ease: "power3.in", onStart: () => SoundEngine.play('heavyWoosh') }).add(() => { layoutContainer.classList.remove('centered-layout'); hugeTitle.style.display = 'block'; hugeTitle.innerText = libraryData[activeCategory].mainTitle; gsap.set(container, { clearProps: 'all' }); renderBooks(libraryData[activeCategory].subcategories, 'stack'); const tl2 = gsap.timeline(); tl2.to('.huge-title', { opacity: 1, x: 0, duration: 0.3 }).fromTo('#shelf-floor-level2', { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.3 }, "<").fromTo('.render-item', { y: -800, x: 0, opacity: 0, rotation: 0 }, { y: 0, opacity: 1, x: (i) => libraryData[activeCategory].subcategories[i].offsetX || 0, rotation: (i) => libraryData[activeCategory].subcategories[i].angle || 0, duration: 0.8, ease: "bounce.out", stagger: 0.15 }, "<"); });
+                }
             }
             else if (currentState === 'level2') {
                 const tl = gsap.timeline({ onComplete: () => { currentState = 'home'; activeCategory = null; }});
-                tl.to('.render-item', { y: 600, opacity: 0, duration: 0.4, stagger: 0.05, ease: "power2.in" }).to(['.huge-title', '#shelf-floor-level2'], { opacity: 0, x: -50, duration: 0.4 }, "<").to(backBtn, { autoAlpha: 0, pointerEvents: 'none', duration: 0.2 }, "<").set('#stage-shelf', { visibility: 'hidden' }).set('#stage-home', { visibility: 'visible' }).to('#cloud-container', { opacity: 1, duration: 0.8 }, "<").to('.big-book-wrapper', { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "<")
-                  .to('#info-btn', { opacity: 1, scale: 1, duration: 0.3, pointerEvents: 'all' }, "-=0.3")
-                  .to('#main-back-btn', { opacity: 1, duration: 0.3, pointerEvents: 'all' }, "-=0.3");
+                if (isMobile()) {
+                    tl.to('.render-item', { x: 60, opacity: 0, duration: 0.3, stagger: 0.04, ease: "power2.in" })
+                      .to('.huge-title', { opacity: 0, x: -30, duration: 0.3 }, "<")
+                      .to(backBtn, { autoAlpha: 0, pointerEvents: 'none', duration: 0.2 }, "<")
+                      .set('#stage-shelf', { visibility: 'hidden' })
+                      .set('#stage-home', { visibility: 'visible' })
+                      .to('#cloud-container', { opacity: 1, duration: 0.6 }, "<")
+                      .fromTo('.big-book-wrapper', { y: -200, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", stagger: 0.1 }, "<")
+                      .to('#info-btn', { opacity: 1, scale: 1, duration: 0.3, pointerEvents: 'all' }, "-=0.3")
+                      .to('#main-back-btn', { opacity: 1, duration: 0.3, pointerEvents: 'all' }, "-=0.3");
+                } else {
+                    tl.to('.render-item', { y: 600, opacity: 0, duration: 0.4, stagger: 0.05, ease: "power2.in" }).to(['.huge-title', '#shelf-floor-level2'], { opacity: 0, x: -50, duration: 0.4 }, "<").to(backBtn, { autoAlpha: 0, pointerEvents: 'none', duration: 0.2 }, "<").set('#stage-shelf', { visibility: 'hidden' }).set('#stage-home', { visibility: 'visible' }).to('#cloud-container', { opacity: 1, duration: 0.8 }, "<").to('.big-book-wrapper', { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "<")
+                      .to('#info-btn', { opacity: 1, scale: 1, duration: 0.3, pointerEvents: 'all' }, "-=0.3")
+                      .to('#main-back-btn', { opacity: 1, duration: 0.3, pointerEvents: 'all' }, "-=0.3");
+                }
             }
         });
     </script>
