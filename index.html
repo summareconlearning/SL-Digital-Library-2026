@@ -253,6 +253,11 @@
             }
         }
 
+        /* Mobile-only element — must never appear on desktop */
+        @media (min-width: 769px) {
+            #mobile-bottom-nav { display: none !important; }
+        }
+
         /* ======================================================
            MOBILE RESPONSIVE — complete overhaul for screens ≤768px
            Desktop styles above are NOT touched.
@@ -372,7 +377,9 @@
             .shelf-master-container {
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 70px 16px 100px;
+                /* Top padding must clear the fixed header: safe-area-inset-top + ~60px for the
+                   2-line header text. Using max() so it's never less than 90px on any device. */
+                padding: max(90px, calc(env(safe-area-inset-top, 0px) + 70px)) 16px 100px;
                 margin-top: 0;
                 gap: 12px;
                 height: 100vh;
@@ -384,7 +391,7 @@
                 overflow-y: auto !important;
                 overflow-x: hidden;
                 justify-content: flex-start !important;
-                padding: 70px 8px 80px !important;
+                padding: max(90px, calc(env(safe-area-inset-top, 0px) + 70px)) 8px 80px !important;
                 -webkit-overflow-scrolling: touch;
             }
 
@@ -671,16 +678,12 @@
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                /* svh = smallest viewport height, excludes browser chrome.
-                   Falls back to vh for browsers without svh support. */
                 height: 92vh;
                 height: 92svh;
                 background: var(--page-paper);
                 border-radius: 20px 20px 0 0;
                 overflow: hidden;
                 position: relative;
-                /* Extra bottom padding so notes bar isn't hidden behind the fixed bottom nav */
-                padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
             }
 
             #mobile-modal-header {
@@ -799,7 +802,10 @@
             #mobile-notes-bar {
                 display: flex;
                 gap: 8px;
-                padding: 10px 14px 8px;
+                padding: 10px 14px;
+                /* Bottom padding must clear the fixed bottom nav (≈70px) so the
+                   note cards are never hidden behind it */
+                padding-bottom: 80px;
                 background: var(--page-paper);
                 flex-shrink: 0;
                 border-top: 1px solid rgba(0,0,0,0.06);
@@ -813,24 +819,18 @@
                BOTTOM NAV BAR (replaces old bookmark + dots)
                ============================================= */
             #mobile-bottom-nav {
-                display: flex;
                 align-items: center;
                 justify-content: space-between;
-                /* Fixed positioning bypasses all dvh/safe-area-inset unreliability on
-                   iPhone Safari. The nav always anchors to the real visible bottom,
-                   above the browser chrome, no matter what the browser bar is doing. */
                 position: fixed;
                 bottom: 0;
                 left: 0;
                 right: 0;
                 z-index: 3000;
                 padding: 10px 16px;
-                /* pb must include the actual safe area — on iPhone this correctly
-                   pushes content above the home indicator even with browser bar shown */
                 padding-bottom: max(14px, env(safe-area-inset-bottom));
                 background: var(--page-paper);
                 gap: 10px;
-                /* Only show when modal is active */
+                /* Hidden by default — only shown via .active class when modal opens */
                 display: none;
             }
             #mobile-bottom-nav.active {
