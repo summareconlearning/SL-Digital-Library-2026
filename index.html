@@ -757,7 +757,7 @@
                 overflow: hidden;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: stretch;
                 padding: 14px 16px;
                 background: var(--page-paper);
             }
@@ -765,8 +765,10 @@
 
             .mobile-page-img {
                 width: 100%;
-                aspect-ratio: 16 / 9;
-                flex-shrink: 0;
+                /* Fill all available height in the slide, don't constrain by aspect-ratio.
+                   background-size: cover handles the image cropping gracefully. */
+                flex: 1;
+                min-height: 0;
                 border-radius: 8px;
                 background-size: cover;
                 background-position: center;
