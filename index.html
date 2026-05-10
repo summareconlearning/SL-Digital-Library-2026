@@ -1218,6 +1218,14 @@
                 const img = document.createElement('div');
                 img.className = 'mobile-page-img';
                 img.style.backgroundImage = `url('${page.contentImg || ''}')`;
+                if (page.contentImg) {
+                    img.style.cursor = 'pointer';
+                    img.title = 'Tap to view fullscreen';
+                    img.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openFullscreenImg(page.contentImg);
+                    });
+                }
                 slide.appendChild(img);
 
                 track.appendChild(slide);
@@ -3116,6 +3124,29 @@
             if (currentState === 'level3') showZoomControls();
             else hideZoomControls();
         }, 200);
+
+        /* =============================================
+           MOBILE IMAGE FULLSCREEN VIEWER
+           ============================================= */
+        function openFullscreenImg(src) {
+            const overlay = document.getElementById('img-fullscreen-overlay');
+            const el = document.getElementById('img-fullscreen-el');
+            el.src = src;
+            overlay.style.display = 'flex';
+            gsap.fromTo(overlay, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+        }
+        function closeFullscreenImg() {
+            const overlay = document.getElementById('img-fullscreen-overlay');
+            gsap.to(overlay, { opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: () => {
+                overlay.style.display = 'none';
+            }});
+        }
     </script>
+
+    <!-- MOBILE IMAGE FULLSCREEN OVERLAY -->
+    <div id="img-fullscreen-overlay" style="display:none; position:fixed; inset:0; z-index:9999; background:#000; align-items:center; justify-content:center;" onclick="closeFullscreenImg()">
+        <button onclick="closeFullscreenImg()" style="position:absolute; top:20px; right:20px; background:none; border:none; color:#fff; font-size:40px; cursor:pointer; z-index:10000; line-height:1;">×</button>
+        <img id="img-fullscreen-el" src="" style="width:100%; max-height:100vh; object-fit:contain; display:block;" />
+    </div>
 </body>
 </html>
