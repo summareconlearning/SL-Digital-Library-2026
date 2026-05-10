@@ -678,8 +678,14 @@
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                height: 92vh;
-                height: 92svh;
+                /* svh excludes the browser chrome, giving us the true visible height.
+                   We subtract the bottom nav height (~68px) so the sheet content ends
+                   exactly where the fixed nav begins — no overlap, no clipping. */
+                height: calc(92svh - 68px);
+                /* Fallback for browsers without svh */
+                height: calc(92vh - 68px);
+                height: calc(92svh - 68px);
+                max-height: calc(100svh - 68px - env(safe-area-inset-bottom, 0px));
                 background: var(--page-paper);
                 border-radius: 20px 20px 0 0;
                 overflow: hidden;
@@ -771,30 +777,42 @@
             }
             .mobile-note-card {
                 flex: 1;
-                min-width: 100px;
+                min-width: 0;
                 background: white;
                 border-radius: 10px;
-                padding: 10px 12px;
+                padding: 8px 10px;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
                 display: flex;
                 flex-direction: column;
-                gap: 4px;
+                gap: 2px;
+                /* Fixed height so it never pushes past the notes bar boundary */
+                height: 80px;
+                overflow: hidden;
             }
             .mobile-note-card .note-label {
-                font-size: 10px;
+                font-size: 9px;
                 color: #888;
                 font-weight: 700;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
                 font-family: 'Outfit', sans-serif;
+                flex-shrink: 0;
             }
             .mobile-note-card .note-value {
-                font-size: 16px;
+                /* clamp: min 11px, scales with viewport width, max 15px.
+                   Keeps long strings like "Based On Learning Matrix" readable
+                   but never overflows the fixed card height. */
+                font-size: clamp(11px, 3.2vw, 15px);
                 font-weight: 900;
                 color: #333;
                 font-family: 'Anton', sans-serif;
-                letter-spacing: 0.5px;
+                letter-spacing: 0.3px;
                 word-break: break-word;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                line-height: 1.2;
             }
             /* =============================================
                NOTES BAR — always visible, outside scroll
@@ -802,10 +820,10 @@
             #mobile-notes-bar {
                 display: flex;
                 gap: 8px;
-                padding: 10px 14px;
-                /* Bottom padding must clear the fixed bottom nav (≈70px) so the
-                   note cards are never hidden behind it */
-                padding-bottom: 80px;
+                /* Fixed height zone: exactly fits the cards + padding.
+                   The fixed bottom nav sits on top of this with matching background,
+                   so there's no clipping — the bar just lives under the nav visually. */
+                padding: 10px 14px 12px;
                 background: var(--page-paper);
                 flex-shrink: 0;
                 border-top: 1px solid rgba(0,0,0,0.06);
