@@ -673,19 +673,15 @@
                 visibility: visible !important;
             }
 
-            /* Mobile modal: full-screen bottom-sheet card */
+            /* Mobile modal: full-screen bottom-sheet card.
+               Height is set in JS to window.innerHeight which is the only reliable
+               way to get the true visible area on iPhone Safari. */
             #mobile-modal-sheet {
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                /* svh excludes the browser chrome, giving us the true visible height.
-                   We subtract the bottom nav height (~68px) so the sheet content ends
-                   exactly where the fixed nav begins — no overlap, no clipping. */
-                height: calc(92svh - 68px);
-                /* Fallback for browsers without svh */
-                height: calc(92vh - 68px);
-                height: calc(92svh - 68px);
-                max-height: calc(100svh - 68px - env(safe-area-inset-bottom, 0px));
+                /* JS overrides this — kept as a safe fallback only */
+                height: 92svh;
                 background: var(--page-paper);
                 border-radius: 20px 20px 0 0;
                 overflow: hidden;
@@ -1313,9 +1309,17 @@
             });
 
             const sheet = document.getElementById('mobile-modal-sheet');
+            const bottomNav = document.getElementById('mobile-bottom-nav');
+
+            /* Show nav first so we can measure its real rendered height */
+            bottomNav.classList.add('active');
+            const navH = bottomNav.getBoundingClientRect().height;
+
+            /* window.innerHeight = true visible area on iPhone Safari (excludes browser bar).
+               Subtract the nav height so the sheet content is never hidden behind the nav. */
+            sheet.style.height = (window.innerHeight - navH) + 'px';
             sheet.style.display = 'flex';
             gsap.fromTo(sheet, { y: '100%' }, { y: '0%', duration: 0.45, ease: 'power3.out' });
-            document.getElementById('mobile-bottom-nav').classList.add('active');
 
             currentState = 'modal';
         }
@@ -1327,6 +1331,7 @@
             gsap.to(sheet, { y: '100%', duration: 0.35, ease: 'power3.in', onComplete: () => {
                 stageModal.style.visibility = 'hidden';
                 stageModal.style.opacity = '0';
+                sheet.style.height = ''; /* reset so JS re-measures on next open */
                 currentState = 'level3';
             }});
         }
