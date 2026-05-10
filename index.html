@@ -672,6 +672,8 @@
                 flex-direction: column;
                 width: 100%;
                 height: 92vh;
+                height: 92svh;
+                height: 92dvh;
                 background: var(--page-paper);
                 border-radius: 20px 20px 0 0;
                 overflow: hidden;
@@ -730,6 +732,7 @@
                 flex: 1;
                 overflow: hidden;
                 position: relative;
+                min-height: 0;
             }
             #mobile-pages-track {
                 display: flex;
@@ -741,11 +744,10 @@
                 flex-shrink: 0;
                 width: 100%;
                 height: 100%;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
+                overflow: hidden;
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
+                justify-content: center;
                 padding: 14px 16px;
                 background: var(--page-paper);
             }
@@ -753,19 +755,13 @@
 
             .mobile-page-img {
                 width: 100%;
-                height: 220px;
-                object-fit: cover;
+                aspect-ratio: 16 / 9;
+                flex-shrink: 0;
                 border-radius: 8px;
                 background-size: cover;
                 background-position: center;
-                flex-shrink: 0;
+                background-repeat: no-repeat;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            }
-
-            .mobile-page-notes {
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
             }
             .mobile-note-card {
                 flex: 1;
@@ -795,13 +791,29 @@
                 word-break: break-word;
             }
             /* =============================================
+               NOTES BAR — always visible, outside scroll
+               ============================================= */
+            #mobile-notes-bar {
+                display: flex;
+                gap: 8px;
+                padding: 10px 14px 8px;
+                background: var(--page-paper);
+                flex-shrink: 0;
+                border-top: 1px solid rgba(0,0,0,0.06);
+            }
+            #mobile-notes-bar .mobile-note-card {
+                flex: 1;
+                min-width: 0;
+            }
+
+            /* =============================================
                BOTTOM NAV BAR (replaces old bookmark + dots)
                ============================================= */
             #mobile-bottom-nav {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 10px 16px 14px;
+                padding: 10px 16px calc(14px + env(safe-area-inset-bottom, 0px));
                 background: var(--page-paper);
                 flex-shrink: 0;
                 gap: 10px;
@@ -1059,7 +1071,7 @@
         <button id="close-chalkboard">×</button>
         <div class="chalkboard-container">
             <!-- FIX: Added title inside chalkboard container -->
-            <h2 class="chalkboard-main-title">MATERI YANG WAJIB DISELESAIKAN</h2>
+            <h2 class="chalkboard-main-title">MATERI YANG WAJIB DISELESAIKAN OLEH SUMMARECONERS</h2>
             <div class="chalk-grid" id="chalkboard-grid"></div>
             <div class="chalk-tray"></div><div class="chalk-eraser"></div><div class="chalk-stick"></div>
         </div>
@@ -1078,6 +1090,9 @@
         <div id="mobile-pages-track-wrapper">
             <div id="mobile-pages-track"></div>
         </div>
+        <!-- Notes bar: always visible, updated per page -->
+        <div id="mobile-notes-bar"></div>
+
         <!-- New bottom nav bar: arrows + dots + optional Akses Materi -->
         <div id="mobile-bottom-nav">
             <button id="mm-prev-btn" class="mm-nav-arrow">←</button>
@@ -1142,31 +1157,31 @@
             const nextBtn = document.getElementById('mm-next-btn');
             const aksesBtn = document.getElementById('mm-akses-btn');
 
+            const makeCard = (label, value, bg) => {
+                const c = document.createElement('div');
+                c.className = 'mobile-note-card';
+                c.style.background = bg || 'white';
+                c.innerHTML = `<div class="note-label">${label}</div><div class="note-value">${value}</div>`;
+                return c;
+            };
+
+            const notesBar = document.getElementById('mobile-notes-bar');
+            const renderNotesBar = (page) => {
+                notesBar.innerHTML = '';
+                notesBar.appendChild(makeCard('Jam Training', page.jam || '-', page.jamColor));
+                notesBar.appendChild(makeCard('Kode Course', page.kode || '-', page.kodeColor));
+                notesBar.appendChild(makeCard('Kategori', page.kategori || '-', page.kategoriColor));
+            };
+
             pages.forEach((page, idx) => {
                 const slide = document.createElement('div');
                 slide.className = 'mobile-page-slide';
 
-                // Image
+                // Image only — notes are in the fixed notes bar below
                 const img = document.createElement('div');
                 img.className = 'mobile-page-img';
                 img.style.backgroundImage = `url('${page.contentImg || ''}')`;
                 slide.appendChild(img);
-
-                // Notes
-                const notes = document.createElement('div');
-                notes.className = 'mobile-page-notes';
-
-                const makeCard = (label, value, bg) => {
-                    const c = document.createElement('div');
-                    c.className = 'mobile-note-card';
-                    c.style.background = bg || 'white';
-                    c.innerHTML = `<div class="note-label">${label}</div><div class="note-value">${value}</div>`;
-                    return c;
-                };
-                notes.appendChild(makeCard('Jam Training', page.jam || '-', page.jamColor));
-                notes.appendChild(makeCard('Kode Course', page.kode || '-', page.kodeColor));
-                notes.appendChild(makeCard('Kategori', page.kategori || '-', page.kategoriColor));
-                slide.appendChild(notes);
 
                 track.appendChild(slide);
 
@@ -1225,6 +1240,7 @@
             const goTo = (idx) => {
                 mobilePageIndex = Math.max(0, Math.min(idx, pages.length - 1));
                 track.style.transform = `translateX(-${mobilePageIndex * 100}%)`;
+                renderNotesBar(pages[mobilePageIndex]);
                 updateBottomNav(mobilePageIndex);
             };
 
@@ -1326,7 +1342,7 @@
             text-align: center;
             line-height: 1.3;
             pointer-events: none;
-            z-index: 999999;
+            z-index: 1999;
             box-shadow: 0 4px 14px rgba(0,0,0,0.5);
             opacity: 0;
             transition: opacity 0.15s ease;
@@ -1364,9 +1380,15 @@
             mobileFloatingTooltip.style.opacity = '0';
         }
 
-        function dismissMobileTooltip() {
+        function dismissMobileTooltip(instant) {
             if (mobileActiveBook) {
-                hideMobileFloatingTooltip();
+                if (instant) {
+                    mobileFloatingTooltip.style.transition = 'none';
+                    mobileFloatingTooltip.style.opacity = '0';
+                    setTimeout(() => { mobileFloatingTooltip.style.transition = 'opacity 0.15s ease'; }, 50);
+                } else {
+                    hideMobileFloatingTooltip();
+                }
                 gsap.to(mobileActiveBook, { y: 0, scale: 1, duration: 0.25, ease: 'power2.out' });
                 mobileActiveBook = null;
             }
@@ -1392,8 +1414,8 @@
 
                 // Level 3 — 2-tap logic
                 if (mobileActiveBook === el) {
-                    // Tap 2: open modal
-                    dismissMobileTooltip();
+                    // Tap 2: open modal — dismiss tooltip instantly, no fade bleed
+                    dismissMobileTooltip(true);
                     SoundEngine.play('click');
                     openMobileModal(data);
                 } else {
@@ -1617,7 +1639,7 @@
                                                                                 "description": "Materi ini mengajarkan metodologi terstruktur untuk membedah masalah kompleks hingga ke akar penyebabnya (root cause analysis). Peserta akan dilatih merumuskan solusi inovatif guna mencegah masalah berulang.   Siap jadi problem solver andalan? Pelajari teknik profesionalnya di kursus ini!",
                                                                                 "spineImg": "./asset/img/SMBOOK/Based On Learning Matrix/spine/Complex Problem Solving/1.png",
                                                                                 "coverImg": "./asset/img/SMBOOK/Based On Learning Matrix/cover/Complex Problem Solving/1.png",
-                                                                                "width": 44,
+                                                                                "width": 50,
                                                                                 "height": 311,
                                                                                 "angle": 3.4,
                                                                                 "btnText": "Lihat Materi",
@@ -2113,7 +2135,7 @@
                                                         "id": "summarecon-mengajar",
                                                         "title": "SUMMARECON MENGAJAR",
                                                         "spineImg": "./asset/img/SMBOOK/TekSM.png",
-                                                        "width": 800,
+                                                        "width": 1000,
                                                         "height": 150,
                                                         "angle": 0,
                                                         "offsetX": -30,
