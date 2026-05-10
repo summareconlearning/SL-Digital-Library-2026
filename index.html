@@ -741,6 +741,8 @@
                 overflow: hidden;
                 position: relative;
                 min-height: 0;
+                /* Cap so the notes bar (104px) always has room below it */
+                max-height: calc(100% - 104px);
             }
             #mobile-pages-track {
                 display: flex;
@@ -781,8 +783,6 @@
                 display: flex;
                 flex-direction: column;
                 gap: 2px;
-                /* Fixed height so it never pushes past the notes bar boundary */
-                height: 80px;
                 overflow: hidden;
             }
             .mobile-note-card .note-label {
@@ -795,9 +795,6 @@
                 flex-shrink: 0;
             }
             .mobile-note-card .note-value {
-                /* clamp: min 11px, scales with viewport width, max 15px.
-                   Keeps long strings like "Based On Learning Matrix" readable
-                   but never overflows the fixed card height. */
                 font-size: clamp(11px, 3.2vw, 15px);
                 font-weight: 900;
                 color: #333;
@@ -816,17 +813,19 @@
             #mobile-notes-bar {
                 display: flex;
                 gap: 8px;
-                /* Fixed height zone: exactly fits the cards + padding.
-                   The fixed bottom nav sits on top of this with matching background,
-                   so there's no clipping — the bar just lives under the nav visually. */
                 padding: 10px 14px 12px;
                 background: var(--page-paper);
+                /* Explicit height so the sheet flex layout always reserves this space.
+                   Card height 80px + padding top 10px + bottom 12px = 102px → round to 104px */
+                height: 104px;
                 flex-shrink: 0;
                 border-top: 1px solid rgba(0,0,0,0.06);
+                align-items: stretch;
             }
             #mobile-notes-bar .mobile-note-card {
                 flex: 1;
                 min-width: 0;
+                height: 100%;
             }
 
             /* =============================================
