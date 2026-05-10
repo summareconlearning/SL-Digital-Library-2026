@@ -1314,8 +1314,7 @@
             const sheet = document.getElementById('mobile-modal-sheet');
             const footer = document.getElementById('mobile-fixed-footer');
 
-            /* visualViewport.height accounts for iPhone Safari bottom bar correctly.
-               We set exact pixel height on the sheet so flex layout works predictably. */
+            /* visualViewport.height accounts for iPhone Safari bottom bar correctly. */
             footer.classList.add('active');
             const footerH = footer.getBoundingClientRect().height;
             const vvH = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
@@ -1323,16 +1322,36 @@
             sheet.style.height = sheetH + 'px';
             sheet.style.display = 'flex';
 
-            /* After the sheet has a real pixel width, set explicit pixel heights on
-               all .mobile-page-img elements so 16:9 is guaranteed on every browser.
-               aspect-ratio alone fails on Safari when the flex container collapses. */
+            /* Compute the 16:9 image height from the real screen width.
+               Then set the track wrapper to EXACTLY that height + slide padding,
+               so overflow:hidden clips nothing. The rest of the sheet (header, CTA)
+               is flex-shrink:0 above it. */
             requestAnimationFrame(() => {
                 const imgW = sheet.clientWidth - 28; /* 14px padding each side */
                 const imgH = Math.round(imgW * 9 / 16);
+                const slideVertPad = 20; /* 10px top + 10px bottom */
+
+                /* Set explicit height on every image — belt AND suspenders */
                 sheet.querySelectorAll('.mobile-page-img').forEach(el => {
                     el.style.height = imgH + 'px';
                     el.style.minHeight = imgH + 'px';
                     el.style.flexShrink = '0';
+                });
+
+                /* Force the track wrapper to exactly the height needed —
+                   no flex guessing, no overflow clipping */
+                const wrapper = document.getElementById('mobile-pages-track-wrapper');
+                const wrapperH = imgH + slideVertPad;
+                wrapper.style.height = wrapperH + 'px';
+                wrapper.style.minHeight = wrapperH + 'px';
+                wrapper.style.flex = 'none';
+
+                /* Track and slides also need real heights for scrolling to work */
+                const track = document.getElementById('mobile-pages-track');
+                track.style.height = wrapperH + 'px';
+                sheet.querySelectorAll('.mobile-page-slide').forEach(el => {
+                    el.style.height = wrapperH + 'px';
+                    el.style.minHeight = wrapperH + 'px';
                 });
             });
 
