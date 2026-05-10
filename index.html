@@ -654,8 +654,6 @@
             #stage-modal {
                 align-items: flex-end;
                 background: rgba(30, 40, 100, 0.97);
-                /* Push the sheet up by the safe area so it never sits under the browser bar */
-                padding-bottom: env(safe-area-inset-bottom, 0px);
             }
 
             /* Hide the desktop book widget entirely */
@@ -673,16 +671,16 @@
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                /* dvh already accounts for the browser chrome on most modern browsers,
-                   but on iOS Safari with the bottom bar visible, the sheet can still
-                   overlap it. Capping with max-height that subtracts the safe-area
-                   ensures the sheet never extends under the browser navigation bar. */
-                height: 92dvh;
-                max-height: calc(100dvh - env(safe-area-inset-bottom, 20px));
+                /* svh = smallest viewport height, excludes browser chrome.
+                   Falls back to vh for browsers without svh support. */
+                height: 92vh;
+                height: 92svh;
                 background: var(--page-paper);
                 border-radius: 20px 20px 0 0;
                 overflow: hidden;
                 position: relative;
+                /* Extra bottom padding so notes bar isn't hidden behind the fixed bottom nav */
+                padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
             }
 
             #mobile-modal-header {
@@ -818,12 +816,25 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                /* Generous fallback (20px) for Android Chrome and older iOS Safari
-                   that report safe-area-inset-bottom as 0 even with browser bar visible. */
-                padding: 10px 16px calc(16px + env(safe-area-inset-bottom, 20px));
+                /* Fixed positioning bypasses all dvh/safe-area-inset unreliability on
+                   iPhone Safari. The nav always anchors to the real visible bottom,
+                   above the browser chrome, no matter what the browser bar is doing. */
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 3000;
+                padding: 10px 16px;
+                /* pb must include the actual safe area — on iPhone this correctly
+                   pushes content above the home indicator even with browser bar shown */
+                padding-bottom: max(14px, env(safe-area-inset-bottom));
                 background: var(--page-paper);
-                flex-shrink: 0;
                 gap: 10px;
+                /* Only show when modal is active */
+                display: none;
+            }
+            #mobile-bottom-nav.active {
+                display: flex;
             }
 
             .mm-nav-arrow {
@@ -1100,13 +1111,15 @@
         <!-- Notes bar: always visible, updated per page -->
         <div id="mobile-notes-bar"></div>
 
-        <!-- New bottom nav bar: arrows + dots + optional Akses Materi -->
-        <div id="mobile-bottom-nav">
-            <button id="mm-prev-btn" class="mm-nav-arrow">←</button>
-            <div id="mobile-page-dots"></div>
-            <a id="mm-akses-btn" href="#" target="_blank" class="mm-akses-link">Akses Materi</a>
-            <button id="mm-next-btn" class="mm-nav-arrow">→</button>
-        </div>
+    </div>
+
+    <!-- Mobile bottom nav: lives OUTSIDE the sheet so it's fixed to the real screen bottom,
+         above the browser chrome on iPhone Safari regardless of dvh/safe-area issues -->
+    <div id="mobile-bottom-nav">
+        <button id="mm-prev-btn" class="mm-nav-arrow">←</button>
+        <div id="mobile-page-dots"></div>
+        <a id="mm-akses-btn" href="#" target="_blank" class="mm-akses-link">Akses Materi</a>
+        <button id="mm-next-btn" class="mm-nav-arrow">→</button>
     </div>
 
     <!-- Description full-text popup overlay (mobile) -->
@@ -1284,11 +1297,13 @@
             const sheet = document.getElementById('mobile-modal-sheet');
             sheet.style.display = 'flex';
             gsap.fromTo(sheet, { y: '100%' }, { y: '0%', duration: 0.45, ease: 'power3.out' });
+            document.getElementById('mobile-bottom-nav').classList.add('active');
 
             currentState = 'modal';
         }
 
         function closeMobileModal() {
+            document.getElementById('mobile-bottom-nav').classList.remove('active');
             const sheet = document.getElementById('mobile-modal-sheet');
             const stageModal = document.getElementById('stage-modal');
             gsap.to(sheet, { y: '100%', duration: 0.35, ease: 'power3.in', onComplete: () => {
