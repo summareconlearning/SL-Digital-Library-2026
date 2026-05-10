@@ -654,6 +654,8 @@
             #stage-modal {
                 align-items: flex-end;
                 background: rgba(30, 40, 100, 0.97);
+                /* Push the sheet up by the safe area so it never sits under the browser bar */
+                padding-bottom: env(safe-area-inset-bottom, 0px);
             }
 
             /* Hide the desktop book widget entirely */
@@ -671,9 +673,12 @@
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                height: 92vh;
-                height: 92svh;
+                /* dvh already accounts for the browser chrome on most modern browsers,
+                   but on iOS Safari with the bottom bar visible, the sheet can still
+                   overlap it. Capping with max-height that subtracts the safe-area
+                   ensures the sheet never extends under the browser navigation bar. */
                 height: 92dvh;
+                max-height: calc(100dvh - env(safe-area-inset-bottom, 20px));
                 background: var(--page-paper);
                 border-radius: 20px 20px 0 0;
                 overflow: hidden;
@@ -813,7 +818,9 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 10px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+                /* Generous fallback (20px) for Android Chrome and older iOS Safari
+                   that report safe-area-inset-bottom as 0 even with browser bar visible. */
+                padding: 10px 16px calc(16px + env(safe-area-inset-bottom, 20px));
                 background: var(--page-paper);
                 flex-shrink: 0;
                 gap: 10px;
