@@ -680,15 +680,11 @@
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                /* JS sets max-height to (window.innerHeight - footerH) so the
-                   sheet never overlaps the fixed footer. overflow-y:auto lets
-                   the image + content scroll freely inside without clipping. */
-                max-height: 92svh;
-                overflow-y: auto;
-                overflow-x: hidden;
-                -webkit-overflow-scrolling: touch;
+                /* JS sets exact pixel height via visualViewport for Safari accuracy */
+                height: 92svh;
                 background: var(--page-paper);
                 border-radius: 20px 20px 0 0;
+                overflow: hidden;
                 position: relative;
             }
 
@@ -741,35 +737,38 @@
 
             /* Swipeable pages area */
             #mobile-pages-track-wrapper {
-                flex-shrink: 0;
+                flex: 1;
                 overflow: hidden;
                 position: relative;
-                /* Width drives height via the 16:9 image inside.
-                   We do NOT set height here — the image aspect-ratio
-                   expands the wrapper naturally. */
+                min-height: 0;
             }
             #mobile-pages-track {
                 display: flex;
-                /* No height:100% — slides define their own height via content */
+                height: 100%;
                 transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                 will-change: transform;
             }
             .mobile-page-slide {
                 flex-shrink: 0;
                 width: 100%;
-                /* No height:100% — let content size it */
+                height: 100%;
+                overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
                 display: flex;
                 flex-direction: column;
                 align-items: stretch;
                 padding: 10px 14px;
-                gap: 0;
+                gap: 10px;
                 background: var(--page-paper);
             }
             .mobile-page-slide::-webkit-scrollbar { display: none; }
 
             .mobile-page-img {
                 width: 100%;
-                /* True 16:9 — always respected, never squashed */
+                /* JS sets explicit pixel height via setImageHeights() after open.
+                   This is the only cross-browser reliable way on mobile Safari/Chrome.
+                   aspect-ratio is set as a progressive enhancement for modern browsers. */
                 aspect-ratio: 16 / 9;
                 flex-shrink: 0;
                 border-radius: 8px;
@@ -777,8 +776,6 @@
                 background-position: center;
                 background-repeat: no-repeat;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                /* Fallback for older browsers that don't support aspect-ratio */
-                min-height: 0;
             }
             .mobile-note-card {
                 flex: 1;
@@ -1317,17 +1314,28 @@
             const sheet = document.getElementById('mobile-modal-sheet');
             const footer = document.getElementById('mobile-fixed-footer');
 
-            /* Show footer first so we can measure its real rendered height.
-               Use visualViewport.height when available (accounts for iPhone Safari
-               bottom bar shrink/grow), fall back to window.innerHeight.
-               We set max-height (not height) so the sheet can be shorter than
-               the cap when content is small, but content can scroll if taller. */
+            /* visualViewport.height accounts for iPhone Safari bottom bar correctly.
+               We set exact pixel height on the sheet so flex layout works predictably. */
             footer.classList.add('active');
             const footerH = footer.getBoundingClientRect().height;
             const vvH = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
-            const sheetMaxH = vvH - footerH;
-            sheet.style.maxHeight = sheetMaxH + 'px';
+            const sheetH = vvH - footerH;
+            sheet.style.height = sheetH + 'px';
             sheet.style.display = 'flex';
+
+            /* After the sheet has a real pixel width, set explicit pixel heights on
+               all .mobile-page-img elements so 16:9 is guaranteed on every browser.
+               aspect-ratio alone fails on Safari when the flex container collapses. */
+            requestAnimationFrame(() => {
+                const imgW = sheet.clientWidth - 28; /* 14px padding each side */
+                const imgH = Math.round(imgW * 9 / 16);
+                sheet.querySelectorAll('.mobile-page-img').forEach(el => {
+                    el.style.height = imgH + 'px';
+                    el.style.minHeight = imgH + 'px';
+                    el.style.flexShrink = '0';
+                });
+            });
+
             gsap.fromTo(sheet, { y: '100%' }, { y: '0%', duration: 0.45, ease: 'power3.out' });
 
             currentState = 'modal';
@@ -1340,7 +1348,7 @@
             gsap.to(sheet, { y: '100%', duration: 0.35, ease: 'power3.in', onComplete: () => {
                 stageModal.style.visibility = 'hidden';
                 stageModal.style.opacity = '0';
-                sheet.style.maxHeight = '';
+                sheet.style.height = '';
                 currentState = 'level3';
             }});
         }
